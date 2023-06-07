@@ -22,7 +22,10 @@ namespace ProjectsScheduler
             if (resourceToColors == null)
                 return;
 
-            var marginLeft = 15;
+            var marginLeft = projectSet.ProjectList
+                .SelectMany(p => p.Tasks)
+                .Select(t => $"{t.Duration + t.ResourceName}".Length)
+                .Max() + 10;
 
             foreach (var project in projectSet.ProjectList)
             {
