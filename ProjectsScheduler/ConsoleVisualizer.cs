@@ -22,32 +22,34 @@ namespace ProjectsScheduler
             if (resourceToColors == null)
                 return;
 
-            var marginLeft = 10;
+            var marginLeft = 15;
 
             foreach (var project in projectSet.ProjectList)
             {
                 Console.WriteLine($"{project.Name}:");
                 foreach (var task in project.Tasks)
                 {
-                    var nameLenght = $" Task {task.ID.Substring(0, 4)}".Length;
-                    Console.Write($" Task {task.ID.Substring(0, 4)}");
-                    Console.Write(new string(' ', marginLeft - nameLenght) + "|");
+                    // task
+                    var taskLine = $" Task {task.Duration + task.ResourceName}";
+                    var line = taskLine + new string(' ', marginLeft - taskLine.Length) + "|";
+                    Console.Write(line);
+
+                    // value
                     Console.Write(new string(' ', result.TaskIdToTaskStartTime[task.ID]));
                     WriteWithColor(resourceToColors[task.ResourceName], new string('*', task.Duration));
+
                     Console.WriteLine();
-                    //Console.WriteLine($"[{solver.Value(modelTask.Start)};{solver.Value(modelTask.End)}]");
                 }
             }
 
             Console.WriteLine(new string('-', 100));
 
-            var label = "Timeline->";
-            Console.Write(label);
-            Console.Write(new string(' ', marginLeft - label.Length) + "|");
+            var label = "Timeline->" ;
+            Console.Write(label + new string(' ', marginLeft - label.Length) + "|");
             Console.WriteLine("0        10        20        30        40        50        60        70        80");
 
-            Console.Write(new string(' ', unchecked((int)(result.OverallTime))));
-            Console.Write("           <-SolveTime = " + result.OverallTime);
+            Console.Write(new string(' ', marginLeft + unchecked((int)(result.OverallTime))));
+            Console.Write(" <-SolveTime = " + result.OverallTime);
 
             Console.WriteLine();
             foreach (var item in resourceToColors)
