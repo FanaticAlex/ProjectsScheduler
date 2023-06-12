@@ -1,4 +1,38 @@
 {
+  "Resources": [
+    {
+      "Name": "Avalara(BE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "Avalara(QA)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "Bancard(BE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "Bancard(QA)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "Cybersource(BE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "Cybersource(QA)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "Experian(BE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "Experian(QA)",
+      "MaxParallelTasks": 1
+    }
+  ],
   "ProjectList": [
     {
       "Name": "Avalara 1",

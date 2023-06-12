@@ -1,4 +1,42 @@
 {
+  "Resources": [
+    {
+      "Name": "A(BE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "A(FE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "A(QA)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "B(BE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "B(FE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "B(QA)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "C(BE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "C(FE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "C(QA)",
+      "MaxParallelTasks": 1
+    }
+  ],
   "ProjectList": [
     {
       "Name": "project1",

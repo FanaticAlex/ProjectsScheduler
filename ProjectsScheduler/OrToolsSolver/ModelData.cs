@@ -19,7 +19,7 @@ namespace ProjectsScheduler.OrToolsSolver
 
     class ModelResource
     {
-        public string ResourceName { get; set; }
+        public Resource Resource { get; set; }
         public List<ModelTask> Tasks { get; set; } = new List<ModelTask>();
     }
 
@@ -52,11 +52,12 @@ namespace ProjectsScheduler.OrToolsSolver
 
 
                     var modelResource = ModelResources
-                        .FirstOrDefault(modelResource => modelResource.ResourceName == task.ResourceName);
+                        .FirstOrDefault(modelResource => modelResource.Resource.Name == task.ResourceName);
                     if (modelResource == null)
                     {
+                        var resource = projectSet.Resources.Single(resource => resource.Name == task.ResourceName);
                         modelResource = new ModelResource();
-                        modelResource.ResourceName = task.ResourceName;
+                        modelResource.Resource = resource;
                         ModelResources.Add(modelResource);
                     }
 

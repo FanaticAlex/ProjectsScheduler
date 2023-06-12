@@ -18,7 +18,7 @@ namespace ProjectsScheduler
             }
 
 
-            var resourceToColors = GetResourceToColor(projectSet.GetAllResources());
+            var resourceToColors = GetResourceToColor(projectSet.Resources);
             if (resourceToColors == null)
                 return;
 
@@ -71,7 +71,7 @@ namespace ProjectsScheduler
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        private static Dictionary<string, ConsoleColor> GetResourceToColor(List<string> resources)
+        private static Dictionary<string, ConsoleColor> GetResourceToColor(List<Resource> resources)
         {
             var colors = new List<ConsoleColor>()
         {
@@ -98,7 +98,7 @@ namespace ProjectsScheduler
             var result = new Dictionary<string, ConsoleColor>();
             for (var i = 0; i < resources.Count; i++)
             {
-                result.Add(resources[i], colors[i]);
+                result.Add(resources[i].Name, colors[i]);
             }
 
             return result;

@@ -1,4 +1,18 @@
 {
+  "Resources": [
+    {
+      "Name": "A",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "B",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "C",
+      "MaxParallelTasks": 1
+    }
+  ],
   "ProjectList": [
     {
       "Name": "project1",

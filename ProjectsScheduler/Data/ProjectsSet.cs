@@ -29,6 +29,12 @@ namespace ProjectsScheduler.Data
         public string ID { get; }
     }
 
+    public class Resource
+    {
+        public string Name { get; set; }
+        public int MaxParallelTasks { get; set; } = 1;
+    }
+
     public class ProjectsSet
     {
         // horizon is the upper bound of the start time of all tasks.
@@ -39,14 +45,10 @@ namespace ProjectsScheduler.Data
         public int timeLimitInSeconds = 0;
 
         public List<Project> ProjectList { get; set; }
+        public List<Resource> Resources { get; set; }
 
         public ProjectsSet()
         {
-        }
-
-        public List<string> GetAllResources()
-        {
-            return ProjectList.SelectMany(p => p.Tasks).Select(t => t.ResourceName).Distinct().ToList();
         }
     }
 }

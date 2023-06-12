@@ -46,21 +46,39 @@ namespace ProjectsScheduler.OrToolsSolver
 
         private static void InitModel(ModelData modelData, CpModel model)
         {
-            // ----- Creates model -----
-
-            // Creates precedences inside jobs.
-            for (int j = 0; j < modelData.ModelProjects.Count; ++j) // для каждого проекта
+            // Ограничение на то, что задачи в проектах выполняются только последовательно одна за другой.
+            // время конца первой задачи не может быть больше времени начала следующей задачи
+            for (int j = 0; j < modelData.ModelProjects.Count; ++j)
             {
-                for (int t = 0; t < modelData.ModelProjects[j].ModelTasks.Count - 1; ++t) // для каждой задачи в проекте
+                for (int t = 0; t < modelData.ModelProjects[j].ModelTasks.Count - 1; ++t)
                 {
                     model.Add(modelData.ModelProjects[j].ModelTasks[t].End <= modelData.ModelProjects[j].ModelTasks[t + 1].Start);
                 }
             }
 
-            // Adds no_overkap constraints on unary resources.
+            // Ограничение на то, что на одной машине не могут выполняться одновременно две задачи
+            // интервалы задач на одну машаину не должны пересекаться
             foreach (var modelResource in modelData.ModelResources)
             {
-                model.AddNoOverlap(modelResource.Tasks.Select(t => t.Interval));
+                if (modelResource.Resource.MaxParallelTasks == 1)
+                {
+                    model.AddNoOverlap(modelResource.Tasks.Select(t => t.Interval));
+                }
+                else
+                {
+                    var tasks = modelResource.Tasks;
+                    var combinations = GetCombinations(tasks.Count, modelResource.Resource.MaxParallelTasks + 1);
+                    foreach (var combination in combinations)
+                    {
+                        var maxs = model.NewIntVar(0, 10000, "maxs" + string.Join("_", combination));
+                        var mine = model.NewIntVar(0, 10000, "mine" + string.Join("_", combination));
+                        IntVar[] ss = combination.Select(i => tasks[i].Start).ToArray();
+                        IntVar[] ee = combination.Select(i => tasks[i].End).ToArray();
+                        model.AddMaxEquality(maxs, ss);
+                        model.AddMinEquality(mine, ee);
+                        model.Add(maxs >= mine);
+                    }
+                }
             }
 
             // Creates array of end_times of jobs.
@@ -72,6 +90,27 @@ namespace ProjectsScheduler.OrToolsSolver
 
             model.AddMaxEquality(modelData.makespan, allEnds);
             model.Minimize(modelData.makespan);
+        }
+
+        private static IEnumerable<int[]> GetCombinations(int tasksCount, int maxParallel)
+        {
+            int[] result = new int[maxParallel];
+            Stack<int> stack = new Stack<int>(maxParallel);
+            stack.Push(0);
+            while (stack.Count > 0)
+            {
+                int index = stack.Count - 1;
+                int value = stack.Pop();
+                while (value < tasksCount)
+                {
+                    result[index++] = value++;
+                    stack.Push(value);
+                    if (index != maxParallel) continue;
+                    yield return (int[])result.Clone(); // thanks to @xanatos
+                                                        //yield return result;
+                    break;
+                }
+            }
         }
     }
 }
