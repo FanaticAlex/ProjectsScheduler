@@ -2,29 +2,37 @@
   "Resources": [
     {
       "Name": "Avalara(BE)",
-      "MaxParallelTasks": 1
+      "MaxParallelTasks": 2,
+      "Vacations": [ 1, 2 ]
     },
     {
       "Name": "Bancard(BE)",
-      "MaxParallelTasks": 1
+      "MaxParallelTasks": 2,
+      "Vacations": [ 0, 1 ]
     },
     {
       "Name": "Cybersource(BE)",
-      "MaxParallelTasks": 1
+      "MaxParallelTasks": 2
     },
     {
       "Name": "Experian(BE)",
-      "MaxParallelTasks": 1
+      "MaxParallelTasks": 2,
+      "Vacations": [ 0, 1 ]
     },
     {
       "Name": "QA",
-      "MaxParallelTasks": 3
+      "MaxParallelTasks": 3,
+      "Vacations": [ 4 ]
     }
   ],
   "ProjectList": [
     {
       "Name": "Avalara 1",
       "Tasks": [
+        {
+          "ResourceName": "Avalara(BE)",
+          "Duration": 1
+        },
         {
           "ResourceName": "Avalara(BE)",
           "Duration": 1
@@ -43,6 +51,10 @@
           "Duration": 1
         },
         {
+          "ResourceName": "Avalara(BE)",
+          "Duration": 1
+        },
+        {
           "ResourceName": "QA",
           "Duration": 2
         }
@@ -51,6 +63,10 @@
     {
       "Name": "Bancard 1",
       "Tasks": [
+        {
+          "ResourceName": "Bancard(BE)",
+          "Duration": 1
+        },
         {
           "ResourceName": "Bancard(BE)",
           "Duration": 1
@@ -69,6 +85,10 @@
           "Duration": 1
         },
         {
+          "ResourceName": "Bancard(BE)",
+          "Duration": 1
+        },
+        {
           "ResourceName": "QA",
           "Duration": 2
         }
@@ -77,6 +97,10 @@
     {
       "Name": "Cybersource 1",
       "Tasks": [
+        {
+          "ResourceName": "Cybersource(BE)",
+          "Duration": 2
+        },
         {
           "ResourceName": "Cybersource(BE)",
           "Duration": 2
@@ -95,6 +119,10 @@
           "Duration": 2
         },
         {
+          "ResourceName": "Cybersource(BE)",
+          "Duration": 2
+        },
+        {
           "ResourceName": "QA",
           "Duration": 1
         }
@@ -108,6 +136,10 @@
           "Duration": 1
         },
         {
+          "ResourceName": "Experian(BE)",
+          "Duration": 1
+        },
+        {
           "ResourceName": "QA",
           "Duration": 2
         }
@@ -116,6 +148,10 @@
     {
       "Name": "Experian 2",
       "Tasks": [
+        {
+          "ResourceName": "Experian(BE)",
+          "Duration": 1
+        },
         {
           "ResourceName": "Experian(BE)",
           "Duration": 1

@@ -1,0 +1,37 @@
+{
+  "Resources": [
+    {
+      "Name": "R",
+      "MaxParallelTasks": 3
+    }
+  ],
+  "ProjectList": [
+    {
+      "Name": "Project 1",
+      "Tasks": [
+        {
+          "ResourceName": "R",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Project 1",
+      "Tasks": [
+        {
+          "ResourceName": "R",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Project 1",
+      "Tasks": [
+        {
+          "ResourceName": "R",
+          "Duration": 1
+        }
+      ]
+    }
+  ]
+}

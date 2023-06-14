@@ -1,0 +1,46 @@
+{
+  "Resources": [
+    {
+      "Name": "QA",
+      "MaxParallelTasks": 3
+    }
+  ],
+  "ProjectList": [
+    {
+      "Name": "Project 1",
+      "Tasks": [
+        {
+          "ResourceName": "QA",
+          "Duration": 3
+        }
+      ]
+    },
+    {
+      "Name": "Project 2",
+      "Tasks": [
+        {
+          "ResourceName": "QA",
+          "Duration": 3
+        }
+      ]
+    },
+    {
+      "Name": "Project 3",
+      "Tasks": [
+        {
+          "ResourceName": "QA",
+          "Duration": 3
+        }
+      ]
+    },
+    {
+      "Name": "Project 4",
+      "Tasks": [
+        {
+          "ResourceName": "QA",
+          "Duration": 3
+        }
+      ]
+    }
+  ]
+}

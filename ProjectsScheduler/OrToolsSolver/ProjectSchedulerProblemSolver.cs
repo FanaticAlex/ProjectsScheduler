@@ -6,11 +6,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ProjectsScheduler.OrToolsSolver
 {
     public class ProjectSchedulerProblemSolver
     {
+
         public Result Solve(ProjectsSet projectSet)
         {
             var stopwatch = new Stopwatch();
@@ -44,7 +46,7 @@ namespace ProjectsScheduler.OrToolsSolver
             return result;
         }
 
-        private static void InitModel(ModelData modelData, CpModel model)
+        private void InitModel(ModelData modelData, CpModel model)
         {
             // Ограничение на то, что задачи в проектах выполняются только последовательно одна за другой.
             // время конца первой задачи не может быть больше времени начала следующей задачи
@@ -52,31 +54,59 @@ namespace ProjectsScheduler.OrToolsSolver
             {
                 for (int t = 0; t < modelData.ModelProjects[j].ModelTasks.Count - 1; ++t)
                 {
-                    model.Add(modelData.ModelProjects[j].ModelTasks[t].End <= modelData.ModelProjects[j].ModelTasks[t + 1].Start);
+                    var firstTask = modelData.ModelProjects[j].ModelTasks[t];
+                    var secondTask = modelData.ModelProjects[j].ModelTasks[t + 1];
+                    if (firstTask.Task.ResourceName != secondTask.Task.ResourceName)
+                        model.Add(firstTask.End <= secondTask.Start);
                 }
             }
 
-            // Ограничение на то, что на одной машине не могут выполняться одновременно две задачи
-            // интервалы задач на одну машаину не должны пересекаться
+            // Ограничения ресурсов
             foreach (var modelResource in modelData.ModelResources)
             {
-                if (modelResource.Resource.MaxParallelTasks == 1)
+                // многозадачные ресурсы могут выполнять m задач одновременно
+                // тогда ограничение будет: любые m+1 интервалов тасков не могут пересекаться
+                var tasks = modelResource.Tasks;
+
+                var combinations = GetCombinations(tasks.Count, modelResource.Resource.MaxParallelTasks + 1);
+                foreach (var combination in combinations)
                 {
-                    model.AddNoOverlap(modelResource.Tasks.Select(t => t.Interval));
+                    var name = string.Join("_", combination);
+                    var maxs = model.NewIntVar(0, 10000, "maxs" + name);
+                    var mine = model.NewIntVar(0, 10000, "mine" + name);
+                    IntVar[] ss = combination.Select(i => tasks[i].Start).ToArray();
+                    IntVar[] ee = combination.Select(i => tasks[i].End).ToArray();
+                    model.AddMaxEquality(maxs, ss);
+                    model.AddMinEquality(mine, ee);
+                    model.Add(maxs >= mine);
                 }
-                else
+
+                // ограничения на отпуска
+                // один слот ресурса убираем 
+                // ограничиваем пересечение m интервалов в даты отпусков
+                foreach (var t0 in modelResource.Resource.Vacations)
                 {
-                    var tasks = modelResource.Tasks;
-                    var combinations = GetCombinations(tasks.Count, modelResource.Resource.MaxParallelTasks + 1);
-                    foreach (var combination in combinations)
+                    // t0 > min(e) || t0 < max(s)
+                    var combinations1 = GetCombinations(tasks.Count, modelResource.Resource.MaxParallelTasks);
+                    foreach (var combination in combinations1)
                     {
-                        var maxs = model.NewIntVar(0, 10000, "maxs" + string.Join("_", combination));
-                        var mine = model.NewIntVar(0, 10000, "mine" + string.Join("_", combination));
+                        var name = string.Join("_", combination);
+                        var maxs = model.NewIntVar(0, 10000, "maxs_" + name);
+                        var mine = model.NewIntVar(0, 10000, "mine_" + name);
                         IntVar[] ss = combination.Select(i => tasks[i].Start).ToArray();
                         IntVar[] ee = combination.Select(i => tasks[i].End).ToArray();
                         model.AddMaxEquality(maxs, ss);
                         model.AddMinEquality(mine, ee);
-                        model.Add(maxs >= mine);
+
+                        var con1 = model.NewBoolVar("con1_" + name);
+                        model.Add(t0 + 1 > mine).OnlyEnforceIf(con1);
+                        model.Add(t0 + 1 <= mine).OnlyEnforceIf(con1.Not());
+
+                        var con2 = model.NewBoolVar("con2_" + name);
+                        model.Add(t0 < maxs).OnlyEnforceIf(con2);
+                        model.Add(t0 >= maxs).OnlyEnforceIf(con2.Not());
+
+                        model.AddBoolOr(new List<ILiteral>() { con1, con2 });
                     }
                 }
             }
