@@ -5,7 +5,9 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectsScheduler", "ProjectsScheduler\ProjectsScheduler.csproj", "{04232C9B-B7EE-410A-8FB7-23F48D4A48D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectsScheduler.Tests", "ProjectsScheduler.Tests\ProjectsScheduler.Tests.csproj", "{B6F8C5A2-2897-452F-A4C1-DB0310B59AE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectsScheduler.Tests", "ProjectsScheduler.Tests\ProjectsScheduler.Tests.csproj", "{B6F8C5A2-2897-452F-A4C1-DB0310B59AE1}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ProjectsSchedulerSetup", "ProjectsSchedulerSetup\ProjectsSchedulerSetup.vdproj", "{D4642FFA-F31B-47AB-906D-EAD000EA960C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,8 @@ Global
 		{B6F8C5A2-2897-452F-A4C1-DB0310B59AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6F8C5A2-2897-452F-A4C1-DB0310B59AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6F8C5A2-2897-452F-A4C1-DB0310B59AE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4642FFA-F31B-47AB-906D-EAD000EA960C}.Debug|Any CPU.ActiveCfg = Debug
+		{D4642FFA-F31B-47AB-906D-EAD000EA960C}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
