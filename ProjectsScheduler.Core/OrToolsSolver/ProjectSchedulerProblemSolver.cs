@@ -1,5 +1,5 @@
 ﻿using Google.OrTools.Sat;
-using ProjectsScheduler.Data;
+using ProjectsScheduler.Core.InputData;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace ProjectsScheduler.OrToolsSolver
+namespace ProjectsScheduler.Core.OrToolsSolver
 {
     public class ProjectSchedulerProblemSolver
     {
@@ -41,7 +41,7 @@ namespace ProjectsScheduler.OrToolsSolver
                 result.TaskIdToTaskStartTime.Add(modelTask.Task.ID, unchecked((int)solver.Value(modelTask.Start)));
             }
 
-            result.OverallTime = solver.ObjectiveValue;
+            result.OverallTime = unchecked((int)solver.ObjectiveValue);
             result.TimeSpent = stopwatch.Elapsed;
             return result;
         }

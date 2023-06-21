@@ -1,7 +1,7 @@
 ﻿using Google.OrTools.Sat;
-using ProjectsScheduler.Data;
+using ProjectsScheduler.Core.InputData;
 
-namespace ProjectsScheduler.OrToolsSolver
+namespace ProjectsScheduler.Core.OrToolsSolver
 {
     class ModelProject
     {

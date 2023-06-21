@@ -1,5 +1,5 @@
-using ProjectsScheduler.Data;
-using ProjectsScheduler.OrToolsSolver;
+using ProjectsScheduler.Core.InputData;
+using ProjectsScheduler.Core.OrToolsSolver;
 using System.Text.Json;
 
 namespace ProjectsScheduler.Tests

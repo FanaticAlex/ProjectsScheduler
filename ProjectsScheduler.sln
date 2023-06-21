@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectsScheduler", "ProjectsScheduler\ProjectsScheduler.csproj", "{04232C9B-B7EE-410A-8FB7-23F48D4A48D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectsScheduler.Console", "ProjectsScheduler\ProjectsScheduler.Console.csproj", "{04232C9B-B7EE-410A-8FB7-23F48D4A48D6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectsScheduler.Tests", "ProjectsScheduler.Tests\ProjectsScheduler.Tests.csproj", "{B6F8C5A2-2897-452F-A4C1-DB0310B59AE1}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ProjectsSchedulerSetup", "ProjectsSchedulerSetup\ProjectsSchedulerSetup.vdproj", "{D4642FFA-F31B-47AB-906D-EAD000EA960C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectsScheduler.Desktop", "ProjectsScheduler.Desktop\ProjectsScheduler.Desktop.csproj", "{02E1424D-EDFB-42C8-9E64-4BCD4ACDCB88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectsScheduler.Core", "ProjectsScheduler.Core\ProjectsScheduler.Core.csproj", "{3257D557-729C-483B-A823-156D70DD7F83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,14 @@ Global
 		{B6F8C5A2-2897-452F-A4C1-DB0310B59AE1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4642FFA-F31B-47AB-906D-EAD000EA960C}.Debug|Any CPU.ActiveCfg = Debug
 		{D4642FFA-F31B-47AB-906D-EAD000EA960C}.Release|Any CPU.ActiveCfg = Release
+		{02E1424D-EDFB-42C8-9E64-4BCD4ACDCB88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02E1424D-EDFB-42C8-9E64-4BCD4ACDCB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02E1424D-EDFB-42C8-9E64-4BCD4ACDCB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02E1424D-EDFB-42C8-9E64-4BCD4ACDCB88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3257D557-729C-483B-A823-156D70DD7F83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3257D557-729C-483B-A823-156D70DD7F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3257D557-729C-483B-A823-156D70DD7F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3257D557-729C-483B-A823-156D70DD7F83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

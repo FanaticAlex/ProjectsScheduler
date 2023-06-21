@@ -1,4 +1,5 @@
-﻿using ProjectsScheduler.Data;
+﻿using ProjectsScheduler.Core;
+using ProjectsScheduler.Core.InputData;
 using System;
 using System.Collections.Generic;
 using System.Linq;

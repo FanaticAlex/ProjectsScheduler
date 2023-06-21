@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectsScheduler
+namespace ProjectsScheduler.Core
 {
     /// <summary>
     /// Решение задачи расписаний.
@@ -16,7 +16,7 @@ namespace ProjectsScheduler
         /// <summary>
         /// Минимальное время необходмое для завершения всех задач всех проектов.
         /// </summary>
-        public double OverallTime { get; set; }
+        public int OverallTime { get; set; }
 
         /// <summary>
         /// Время старта каждой задачи [id_задачи;время_начала]

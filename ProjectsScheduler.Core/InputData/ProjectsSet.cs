@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectsScheduler.Data
+namespace ProjectsScheduler.Core.InputData
 {
     /// <summary>
     /// Проект, состоящий из тасков

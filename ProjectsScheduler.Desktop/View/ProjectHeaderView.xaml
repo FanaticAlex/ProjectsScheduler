@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ProjectsScheduler.Desktop.View.ProjectHeaderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjectsScheduler.Desktop.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="80">
+    <Grid>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Label Name="ProjectNameLabel" Content="Project1" VerticalAlignment="Center"/>
+            <Canvas Name="CanvasBrac" VerticalAlignment="Center" Height="25" Width="10" Margin="8,0,0,0">
+                <Path Name="PathBrac" Stroke="Black" StrokeThickness="1"
+                      Data="M0,0 A100, 173.20508075688772 0 0 1  100, 173.20508075688772 A100, 173.20508075688772 0 0 0 200 346.41016151377545 A100, 173.20508075688772 0 0 0 100, 519.6152422706632 A100, 173.20508075688772 0 0 1 0, 692.8203230275509"
+                      Stretch="Fill" RenderTransformOrigin="0.5,0.5"
+                      Width="15" Height="25">
+                    <Path.RenderTransform>
+                        <ScaleTransform ScaleX="-1.0"/>
+                    </Path.RenderTransform>
+                </Path>
+            </Canvas>
+        </StackPanel>
+    </Grid>
+</UserControl>

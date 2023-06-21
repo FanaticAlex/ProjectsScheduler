@@ -1,0 +1,190 @@
+{
+  "Resources": [
+    {
+      "Name": "A(BE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "A(FE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "A(QA)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "B(BE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "B(FE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "B(QA)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "C(BE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "C(FE)",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "C(QA)",
+      "MaxParallelTasks": 1
+    }
+  ],
+  "ProjectList": [
+    {
+      "Name": "project1",
+      "Tasks": [
+        {
+          "ResourceName": "B(FE)",
+          "Duration": 2
+        },
+        {
+          "ResourceName": "B(QA)",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "project2",
+      "Tasks": [
+        {
+          "ResourceName": "C(FE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "B(FE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C(QA)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "B(QA)",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "project3",
+      "Tasks": [
+        {
+          "ResourceName": "A(FE)",
+          "Duration": 2
+        },
+        {
+          "ResourceName": "A(QA)",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "project4",
+      "Tasks": [
+        {
+          "ResourceName": "C(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C(FE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C(QA)",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "project5",
+      "Tasks": [
+        {
+          "ResourceName": "C(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C(FE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "A(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C(QA)",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "project6",
+      "Tasks": [
+        {
+          "ResourceName": "B(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C(FE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C(QA)",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "project7",
+      "Tasks": [
+        {
+          "ResourceName": "A(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "B(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "B(FE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "A(QA)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "B(QA)",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "project8",
+      "Tasks": [
+        {
+          "ResourceName": "A(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "A(FE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "A(QA)",
+          "Duration": 1
+        }
+      ]
+    }
+  ]
+}
