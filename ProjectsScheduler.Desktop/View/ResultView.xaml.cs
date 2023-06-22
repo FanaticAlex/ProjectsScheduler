@@ -20,22 +20,22 @@ using System.Windows.Shapes;
 namespace ProjectsScheduler.Desktop.View
 {
     /// <summary>
-    /// Interaction logic for TasksSchedulingResultControl.xaml
+    /// Interaction logic for ResultControl.xaml
     /// </summary>
-    public partial class TasksSchedulingResultView : UserControl
+    public partial class ResultView : UserControl
     {
-        public TasksSchedulingResultView()
+        public ResultView()
         {
             InitializeComponent();
         }
 
         public void Update()
         {
-            var vm = (TasksSchedulingResultsViewModel)DataContext;
+            var vm = (ResultsViewModel)DataContext;
 
             // перестроить таблицу оси времени
             var timeMax = vm.TimeMax;
-            SetGridSize(TimeAxis, 1, timeMax);
+            InitGrid(TimeAxis, 1, timeMax, new GridLength(CellWidth), new GridLength(CellHeight));
 
             for (var j = 0; j < timeMax; j++)
             {
@@ -49,8 +49,8 @@ namespace ProjectsScheduler.Desktop.View
 
             // перестроить таблицу тасков
             var tasksCount = vm.Projects.SelectMany(p => p.Tasks).Count();
-            SetGridSize(TasksTimelineLeft, tasksCount, 2);
-            SetGridSize(TasksTimeline, tasksCount, timeMax);
+            InitGrid(TasksTimelineLeft, tasksCount, 2, GridLength.Auto, GridLength.Auto);
+            InitGrid(TasksTimeline, tasksCount, timeMax, new GridLength(CellWidth), new GridLength(CellHeight));
 
             // заполнить таблицу тасков
             var nextProjectRow = 0;
@@ -79,7 +79,7 @@ namespace ProjectsScheduler.Desktop.View
                     intervalControl.Background = new SolidColorBrush(task.ResourceColor);
                     TasksTimeline.Children.Add(intervalControl);
                     Grid.SetRow(intervalControl, nextProjectRow + j);
-                    Grid.SetColumn(intervalControl, task.Start);
+                    Grid.SetColumn(intervalControl, task.Start.Value);
                     Grid.SetColumnSpan(intervalControl, task.Duration);
                 }
 
@@ -89,8 +89,8 @@ namespace ProjectsScheduler.Desktop.View
 
             // заполнить таблицу ресурсов
             var resourcesCount = vm.Resources.Count;
-            SetGridSize(ResourceTimelineLeft, resourcesCount, 2);
-            SetGridSize(ResourceTimeline, resourcesCount, timeMax);
+            InitGrid(ResourceTimelineLeft, resourcesCount, 2, GridLength.Auto, GridLength.Auto);
+            InitGrid(ResourceTimeline, resourcesCount, timeMax, new GridLength(CellWidth), new GridLength(CellHeight));
 
             // header
             var headerControl = GetProjectLegendControl("Загруженность", vm.Resources.Count);
@@ -124,13 +124,15 @@ namespace ProjectsScheduler.Desktop.View
             }
         }
 
-        private void SetGridSize(Grid grid, int rowsCount, int columnsCount)
+        private void InitGrid(Grid grid, int rowsCount, int columnsCount, GridLength width, GridLength height)
         {
+            grid.Children.Clear();
+
             grid.RowDefinitions.Clear();
             for (var j = 0; j < rowsCount; j++)
             {
                 var row = new RowDefinition();
-                row.Height = GridLength.Auto;
+                row.Height = height;
                 grid.RowDefinitions.Add(row);
             }
 
@@ -138,18 +140,21 @@ namespace ProjectsScheduler.Desktop.View
             for (var j = 0; j < columnsCount; j++)
             {
                 var col = new ColumnDefinition();
-                col.Width = GridLength.Auto;
+                col.Width = width;
                 grid.ColumnDefinitions.Add(col);
             }
         }
 
-        private static int CellHeight = 40;
+        private static int CellHeight = 30;
+        private static int CellWidth = 30;
+        private static int FontSize = 10;
 
         private Label GetDefaultCellControl(int size = 1)
         {
             var control = new Label();
-            control.Width = size * 40;
+            control.Width = size * CellWidth;
             control.Height = CellHeight;
+            control.FontSize = FontSize;
             control.VerticalContentAlignment = VerticalAlignment.Center;
             control.HorizontalContentAlignment = HorizontalAlignment.Center;
             return control;
@@ -161,6 +166,7 @@ namespace ProjectsScheduler.Desktop.View
             control.SetProjectName(text);
             control.Height = size * CellHeight;
             control.Width = 150;
+            control.FontSize = FontSize;
             control.HorizontalAlignment = HorizontalAlignment.Right;
             control.SetBracketsSize(size * CellHeight - 5);
             return control;
@@ -171,6 +177,7 @@ namespace ProjectsScheduler.Desktop.View
             var control = new Label();
             control.Width = 100;
             control.Height = CellHeight;
+            control.FontSize = FontSize;
             control.VerticalContentAlignment = VerticalAlignment.Center;
             control.HorizontalContentAlignment = HorizontalAlignment.Left;
             return control;

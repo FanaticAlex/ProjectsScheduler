@@ -1,5 +1,7 @@
-﻿using ProjectsScheduler.Core.InputData;
+﻿using ProjectsScheduler.Core;
+using ProjectsScheduler.Core.InputData;
 using ProjectsScheduler.Core.OrToolsSolver;
+using ProjectsScheduler.Desktop.View;
 using ProjectsScheduler.Desktop.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -29,16 +31,16 @@ namespace ProjectsScheduler.Desktop
         {
             InitializeComponent();
 
-            var json = File.ReadAllText("TestProjectsSet.json");
-            var projectSet = JsonSerializer.Deserialize<ProjectsSet>(json);
+            var vm = DataContext as MainWindowViewModel;
+            vm.SolutionUpdated += Vm1_SolutionUpdated;
+            ProjectsSetView.DataContext = vm.ProjectsSetViewModel;
+        }
 
-            var solver = new ProjectSchedulerProblemSolver();
-            var result = solver.Solve(projectSet);
-
-            var vm = (TasksSchedulingResultsViewModel)ResultView.DataContext;
-            vm.SetData(result, projectSet);
+        private void Vm1_SolutionUpdated(object? sender, EventArgs e)
+        {
+            var vm = DataContext as MainWindowViewModel;
+            ResultView.DataContext = vm.ResultsViewModel;
             ResultView.Update();
-            ResultView.UpdateLayout();
         }
     }
 }

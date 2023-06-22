@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="ProjectsScheduler.Desktop.View.TaskPropertiesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjectsScheduler.Desktop.View" xmlns:viewmodel="clr-namespace:ProjectsScheduler.Desktop.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewmodel:TaskViewModel/>
+    </UserControl.DataContext>
+    
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" FontSize="16" Content="Название"></Label>
+        <TextBox Margin="1" Grid.Row="0" Grid.Column="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Name}"></TextBox>
+
+        <Label Grid.Row="1" Grid.Column="0" FontSize="16" Content="Длительность"></Label>
+        <TextBox Margin="1" Grid.Row="1" Grid.Column="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Duration}"></TextBox>
+    </Grid>
+</UserControl>

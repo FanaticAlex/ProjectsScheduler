@@ -10,7 +10,19 @@
     <Compile Update="View\ProjectHeaderView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\TasksSchedulingResultView.xaml.cs">
+    <Compile Update="View\ProjectProperiesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ProjectsSetView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ResourcePropertiesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\TaskPropertiesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\ResultView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -21,7 +33,19 @@
     <Page Update="View\ProjectHeaderView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\TasksSchedulingResultView.xaml">
+    <Page Update="View\ProjectProperiesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ProjectsSetView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ResourcePropertiesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\TaskPropertiesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ResultView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
