@@ -1,4 +1,5 @@
-﻿using ProjectsScheduler.Core;
+﻿using Microsoft.Win32;
+using ProjectsScheduler.Core;
 using ProjectsScheduler.Core.InputData;
 using ProjectsScheduler.Core.OrToolsSolver;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ProjectsScheduler.Desktop.ViewModel
@@ -24,6 +26,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
         public event EventHandler SolutionUpdated;
 
         public ICommand RunCommand { get; set; }
+        public ICommand LoadCommand { get; set; }
 
         public ProjectsSetViewModel ProjectsSetViewModel { get; set; }
 
@@ -36,23 +39,50 @@ namespace ProjectsScheduler.Desktop.ViewModel
         public MainWindowViewModel()
         {
             RunCommand = new RelayCommand(Run);
-
-            var json = File.ReadAllText("TestProjectsSet.json");
-            ProjectsSet = JsonSerializer.Deserialize<ProjectsSet>(json);
+            LoadCommand = new RelayCommand(Load);
 
             ProjectsSetViewModel = new ProjectsSetViewModel();
-            ProjectsSetViewModel.SetProjectSet(ProjectsSet);
+            ResultsViewModel = new ResultsViewModel();
+
+            Load("TestProjectsSet.json");
         }
 
         private void Run(object? parameter)
         {
             var solver = new ProjectSchedulerProblemSolver();
             Result = solver.Solve(ProjectsSet);
-            ResultsViewModel = new ResultsViewModel();
             ResultsViewModel.SetData(Result, ProjectsSet);
-
             SolutionUpdated?.Invoke(this, null);
             SelectedTabIndex = 1;
+        }
+
+        private void Load(object? parameter)
+        {
+            var filename = (string)parameter;
+            if (parameter == null)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Json files (*.json)|*.json";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    filename = openFileDialog.FileName;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            try
+            {
+                var json = File.ReadAllText(filename);
+                ProjectsSet = JsonSerializer.Deserialize<ProjectsSet>(json);
+                ProjectsSetViewModel.SetProjectSet(ProjectsSet);
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show("Загрузка файла не удалась, возможно файл имеет неверный формат.");
+            }
         }
     }
 }

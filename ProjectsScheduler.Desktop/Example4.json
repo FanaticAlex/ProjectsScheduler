@@ -1,0 +1,357 @@
+{
+  "Resources": [
+    {
+      "Name": "Async(BE)",
+      "MaxParallelTasks": 2,
+      "Vacations": [ 1 ]
+    },
+    {
+      "Name": "Braintree(BE)",
+      "MaxParallelTasks": 2,
+      "Vacations": [ 0 ]
+    },
+    {
+      "Name": "Experian(BE)",
+      "MaxParallelTasks": 2,
+      "Vacations": [ 0 ]
+    },
+    {
+      "Name": "Zlick(BE)",
+      "MaxParallelTasks": 2,
+      "Vacations": [ 1 ]
+    },
+    {
+      "Name": "Klarna(BE)",
+      "MaxParallelTasks": 2
+    },
+    {
+      "Name": "Stripe(BE)",
+      "MaxParallelTasks": 2,
+      "Vacations": [ 3 ]
+    },
+    {
+      "Name": "QA",
+      "MaxParallelTasks": 2
+    }
+  ],
+  "ProjectList": [
+    {
+      "Name": "Async 1",
+      "Tasks": [
+        {
+          "ResourceName": "Async(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Async(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "Async 2",
+      "Tasks": [
+        {
+          "ResourceName": "Async(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Async(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "Async 3",
+      "Tasks": [
+        {
+          "ResourceName": "Async(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Async(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Async(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Async(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Async(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "Braintree 1",
+      "Tasks": [
+        {
+          "ResourceName": "Braintree(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Braintree(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Braintree(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Braintree 2",
+      "Tasks": [
+        {
+          "ResourceName": "Braintree(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Braintree(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Braintree 3",
+      "Tasks": [
+        {
+          "ResourceName": "Braintree(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Braintree(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Experian 1",
+      "Tasks": [
+        {
+          "ResourceName": "Experian(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Experian(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Experian 2",
+      "Tasks": [
+        {
+          "ResourceName": "Experian(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Experian 3",
+      "Tasks": [
+        {
+          "ResourceName": "Experian(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Experian(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Zlick 1",
+      "Tasks": [
+        {
+          "ResourceName": "Zlick(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Zlick(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Zlick(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Zlick(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "Zlick 2",
+      "Tasks": [
+        {
+          "ResourceName": "Zlick(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "Zlick 3",
+      "Tasks": [
+        {
+          "ResourceName": "Zlick(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Klarna 1",
+      "Tasks": [
+        {
+          "ResourceName": "Klarna(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Klarna 2",
+      "Tasks": [
+        {
+          "ResourceName": "Klarna(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Klarna(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "Klarna 3",
+      "Tasks": [
+        {
+          "ResourceName": "Klarna(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Klarna(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Stripe 1",
+      "Tasks": [
+        {
+          "ResourceName": "Stripe(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Stripe(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 1
+        }
+      ]
+    },
+    {
+      "Name": "Stripe 2",
+      "Tasks": [
+        {
+          "ResourceName": "Stripe(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Stripe(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "Stripe 3",
+      "Tasks": [
+        {
+          "ResourceName": "Stripe(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Stripe(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Stripe(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
+          "Duration": 2
+        }
+      ]
+    }
+  ]
+}

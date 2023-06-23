@@ -1,0 +1,156 @@
+{
+  "Resources": [
+    {
+      "Name": "A",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "B",
+      "MaxParallelTasks": 1
+    },
+    {
+      "Name": "C",
+      "MaxParallelTasks": 1
+    }
+  ],
+  "ProjectList": [
+    {
+      "Name": "project1",
+      "Tasks": [
+        {
+          "ResourceName": "B",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "project2",
+      "Tasks": [
+        {
+          "ResourceName": "B",
+          "Duration": 2
+        },
+        {
+          "ResourceName": "A",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C",
+          "Duration": 3
+        }
+      ]
+    },
+    {
+      "Name": "project3",
+      "Tasks": [
+        {
+          "ResourceName": "A",
+          "Duration": 4
+        }
+      ]
+    },
+    {
+      "Name": "project4",
+      "Tasks": [
+        {
+          "ResourceName": "C",
+          "Duration": 3
+        },
+        {
+          "ResourceName": "A",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "B",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "project5",
+      "Tasks": [
+        {
+          "ResourceName": "A",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "B",
+          "Duration": 2
+        },
+        {
+          "ResourceName": "C",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "project6",
+      "Tasks": [
+        {
+          "ResourceName": "C",
+          "Duration": 3
+        },
+        {
+          "ResourceName": "A",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "project7",
+      "Tasks": [
+        {
+          "ResourceName": "B",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "A",
+          "Duration": 4
+        }
+      ]
+    },
+    {
+      "Name": "project8",
+      "Tasks": [
+        {
+          "ResourceName": "B",
+          "Duration": 4
+        }
+      ]
+    },
+    {
+      "Name": "project9",
+      "Tasks": [
+        {
+          "ResourceName": "B",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "A",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "project10",
+      "Tasks": [
+        {
+          "ResourceName": "C",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "B",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "C",
+          "Duration": 2
+        }
+      ]
+    }
+  ]
+}

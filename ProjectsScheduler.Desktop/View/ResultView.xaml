@@ -16,77 +16,49 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Name="TimeAxis" Margin="0,0,0,0" Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
         </Grid>
 
         <Grid Name="TasksTimelineLeft" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
         </Grid>
 
-        <Grid Name="TasksTimeline" MinHeight="100" ShowGridLines="True"  Grid.Row="1" Grid.Column="1">
+        <Grid Name="TasksTimeline" ShowGridLines="True"  Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
         </Grid>
 
-        <GridSplitter ResizeDirection="Rows" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="4" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Background="#FF0E0E0E"/>
 
         <Grid Name="ResourceTimelineLeft" Margin="0,0,0,0" Grid.Row="3" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
         </Grid>
         
         <Grid Name="ResourceTimeline" MinHeight="100" ShowGridLines="True" Grid.Row="3" Grid.Column="1" >
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
         </Grid>
     </Grid>

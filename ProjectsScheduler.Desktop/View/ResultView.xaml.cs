@@ -165,7 +165,7 @@ namespace ProjectsScheduler.Desktop.View
             var control = new ProjectHeaderView();
             control.SetProjectName(text);
             control.Height = size * CellHeight;
-            control.Width = 150;
+            //control.Width = 150;
             control.FontSize = FontSize;
             control.HorizontalAlignment = HorizontalAlignment.Right;
             control.SetBracketsSize(size * CellHeight - 5);
@@ -175,7 +175,7 @@ namespace ProjectsScheduler.Desktop.View
         private Label GetDefaultLegendControl()
         {
             var control = new Label();
-            control.Width = 100;
+            //control.Width = 100;
             control.Height = CellHeight;
             control.FontSize = FontSize;
             control.VerticalContentAlignment = VerticalAlignment.Center;

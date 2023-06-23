@@ -18,7 +18,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
     internal class Node : INode
     {
         public string Name { get; set; }
-        public List<INode> Children { get; set; } = new List<INode>();
+        public ObservableCollection<INode> Children { get; set; } = new ObservableCollection<INode>();
         public object Original { get; set; }
     }
 

@@ -14,17 +14,22 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <view:ProjectsSetView Margin="10" Grid.Row="0" Grid.Column="0" x:Name="ProjectsSetView"/>
-        <view:ResultView Margin="10" Grid.Row="0" Grid.Column="1" x:Name="ResultView" BorderBrush="Black" BorderThickness="1"/>
-        <Button Grid.Row="1" Width="100" Margin="10" Command="{Binding RunCommand}">Вычислить</Button>
+        <ToolBarTray DockPanel.Dock="Top" Grid.ColumnSpan="2">
+            <ToolBar>
+                <Button Command="{Binding RunCommand}">Вычислить</Button>
+                <Button Command="{Binding LoadCommand}">Загрузить пример</Button>
+            </ToolBar>
+        </ToolBarTray>
         
+        <view:ProjectsSetView Margin="10" Grid.Row="1" Grid.Column="0" x:Name="ProjectsSetView"/>
+        <view:ResultView Margin="10" Grid.Row="1" Grid.Column="1" x:Name="ResultView" BorderBrush="Black" BorderThickness="1"/>
     </Grid>
 </Window>
