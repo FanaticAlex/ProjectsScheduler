@@ -21,9 +21,9 @@ namespace ProjectsScheduler.Desktop.ViewModel
             var tasks = inputData.ProjectList.SelectMany(p => p.Tasks).ToList();
             TimeMax = result.OverallTime;
 
-            var resourcesToColors = ResourceViewModel.GetResourceToColor(inputData.Resources);
-            Projects = inputData.ProjectList.Select(p => new ProjectViewModel(p, result, resourcesToColors)).ToList();
-            Resources = inputData.Resources.Select(r => new ResourceViewModel(r, result, tasks, resourcesToColors)).ToList();
+            var resourcesVM = inputData.Resources.Select(r => new ResourceViewModel(r, result, tasks, inputData.Resources)).ToList();
+            Projects = inputData.ProjectList.Select(p => new ProjectViewModel(p, result, resourcesVM)).ToList();
+            Resources = inputData.Resources.Select(r => new ResourceViewModel(r, result, tasks, inputData.Resources)).ToList();
         }
     }
 }

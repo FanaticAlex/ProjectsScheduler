@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectsScheduler.Desktop
+namespace ProjectsScheduler.Desktop.ViewModel
 {
     internal class BaseVewModel : INotifyPropertyChanged
     {

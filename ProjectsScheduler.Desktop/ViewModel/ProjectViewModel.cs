@@ -18,10 +18,10 @@ namespace ProjectsScheduler.Desktop.ViewModel
 
         public Project Project { get; set; }
 
-        public ProjectViewModel(Project project, Result result, Dictionary<string, Color> resourcesToColors)
+        public ProjectViewModel(Project project, Result result, List<ResourceViewModel> resources)
         {
             Project = project;
-            Tasks = project.Tasks.Select(t => new TaskViewModel(t, result, resourcesToColors)).ToList();
+            Tasks = project.Tasks.Select(t => new TaskViewModel(t, result, resources)).ToList();
         }
     }
 }

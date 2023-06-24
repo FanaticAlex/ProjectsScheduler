@@ -14,6 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -26,5 +27,14 @@
 
         <Label Grid.Row="1" Grid.Column="0" FontSize="16" Content="Длительность"></Label>
         <TextBox Margin="1" Grid.Row="1" Grid.Column="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Duration}"></TextBox>
+
+        <Label Grid.Row="2" Grid.Column="0" FontSize="16" Content="Ресурс"></Label>
+        <ComboBox Grid.Row="2" Grid.Column="1" Margin="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemsSource="{Binding ResourcesSet}" SelectedItem="{Binding Resource}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </UserControl>

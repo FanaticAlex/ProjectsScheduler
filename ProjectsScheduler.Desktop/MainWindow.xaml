@@ -26,6 +26,8 @@
             <ToolBar>
                 <Button Command="{Binding RunCommand}">Вычислить</Button>
                 <Button Command="{Binding LoadCommand}">Загрузить пример</Button>
+                <Button Command="{Binding AddProjectCommand}">Добавить проект</Button>
+                <Button Command="{Binding AddTaskCommand}">Добавить таск</Button>
             </ToolBar>
         </ToolBarTray>
         

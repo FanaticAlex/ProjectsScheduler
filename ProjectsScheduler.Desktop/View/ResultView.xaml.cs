@@ -76,7 +76,7 @@ namespace ProjectsScheduler.Desktop.View
 
                     // отрезок
                     var intervalControl = GetDefaultCellControl(task.Duration);
-                    intervalControl.Background = new SolidColorBrush(task.ResourceColor);
+                    intervalControl.Background = new SolidColorBrush(task.Resource.ResourceColor);
                     TasksTimeline.Children.Add(intervalControl);
                     Grid.SetRow(intervalControl, nextProjectRow + j);
                     Grid.SetColumn(intervalControl, task.Start.Value);

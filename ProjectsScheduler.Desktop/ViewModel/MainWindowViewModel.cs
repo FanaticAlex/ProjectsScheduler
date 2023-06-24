@@ -27,6 +27,8 @@ namespace ProjectsScheduler.Desktop.ViewModel
 
         public ICommand RunCommand { get; set; }
         public ICommand LoadCommand { get; set; }
+        public ICommand AddProjectCommand { get; set; }
+        public ICommand AddTaskCommand { get; set; }
 
         public ProjectsSetViewModel ProjectsSetViewModel { get; set; }
 
@@ -40,6 +42,8 @@ namespace ProjectsScheduler.Desktop.ViewModel
         {
             RunCommand = new RelayCommand(Run);
             LoadCommand = new RelayCommand(Load);
+            AddProjectCommand = new RelayCommand(AddProject);
+            AddTaskCommand = new RelayCommand(AddTask, CanExecuteAddTask);
 
             ProjectsSetViewModel = new ProjectsSetViewModel();
             ResultsViewModel = new ResultsViewModel();
@@ -83,6 +87,28 @@ namespace ProjectsScheduler.Desktop.ViewModel
             {
                 MessageBox.Show("Загрузка файла не удалась, возможно файл имеет неверный формат.");
             }
+        }
+
+        private void AddProject(object? parameter)
+        {
+            var newProject = new Project("Новый проект");
+            ProjectsSet.ProjectList.Add(newProject);
+            ProjectsSetViewModel.SetProjectSet(ProjectsSet);
+        }
+
+        private void AddTask(object? parameter)
+        {
+            var projectVM = (ProjectsSetViewModel.SelectedObject as ProjectViewModel);
+            var project = ProjectsSet.ProjectList.Single(p => p.Name == projectVM.Name);
+            var defaultResource = ProjectsSet.Resources.FirstOrDefault();
+            var newTask = new ProjectTask(1,defaultResource.Name);
+            project.Tasks.Add(newTask);
+            ProjectsSetViewModel.SetProjectSet(ProjectsSet);
+        }
+
+        private bool CanExecuteAddTask(object? parameter)
+        {
+            return (ProjectsSetViewModel.SelectedObject is ProjectViewModel);
         }
     }
 }

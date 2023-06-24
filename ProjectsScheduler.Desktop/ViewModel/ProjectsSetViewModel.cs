@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using static Google.OrTools.ConstraintSolver.RoutingModel.ResourceGroup;
 
 namespace ProjectsScheduler.Desktop.ViewModel
 {
@@ -25,16 +26,16 @@ namespace ProjectsScheduler.Desktop.ViewModel
     internal class ProjectsSetViewModel
     {
         public ObservableCollection<Node> Nodes { get; set; } = new ObservableCollection<Node> { };
-        public ProjectViewModel SelectedNode { get; set; }
+        public Object? SelectedObject { get; set; }
 
         public void SetProjectSet(ProjectsSet projectsSet)
         {
             Nodes.Clear();
-
-            var resourcesToColors = ResourceViewModel.GetResourceToColor(projectsSet.Resources);
+            var resourcesVM = projectsSet.Resources
+                .Select(r => new ResourceViewModel(r, null, null, projectsSet.Resources)).ToList();
             foreach (var project in projectsSet.ProjectList)
             {
-                var projectVM = new ProjectViewModel(project, null, resourcesToColors);
+                var projectVM = new ProjectViewModel(project, null, resourcesVM);
                 var projectNode = new Node() { Name = project.Name, Original = projectVM};
                 Nodes.Add(projectNode);
                 foreach (var task in projectVM.Tasks)
@@ -44,9 +45,9 @@ namespace ProjectsScheduler.Desktop.ViewModel
             }
 
             var resourceNode = new Node() { Name = "Ресурсы" };
-            foreach (var resource in projectsSet.Resources)
+            foreach (var resourceVM in resourcesVM)
             {
-                resourceNode.Children.Add(new ResourceViewModel(resource, null, null, resourcesToColors));
+                resourceNode.Children.Add(resourceVM);
             }
 
             Nodes.Add(resourceNode);

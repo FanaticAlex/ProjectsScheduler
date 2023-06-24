@@ -26,10 +26,11 @@ namespace ProjectsScheduler.Desktop.ViewModel
             Resource = new Resource();
         }
 
-        public ResourceViewModel(Resource resource, Result result, List<ProjectTask> tasks, Dictionary<string, Color> resourcesToColors)
+        public ResourceViewModel(Resource resource, Result result, List<ProjectTask> tasks, List<Resource> resources)
         {
             Resource = resource;
             var resourceTasks = tasks?.Where(t => t.ResourceName == resource.Name).ToList();
+            var resourcesToColors = ResourceViewModel.GetResourceToColor(resources);
             ResourceColor = resourcesToColors[resource.Name];
             Load = GetResourceLoad(resourceTasks, result);
             MaxParallelTasks = resource.MaxParallelTasks;

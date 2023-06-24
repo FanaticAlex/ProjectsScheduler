@@ -1,4 +1,5 @@
-﻿using ProjectsScheduler.Desktop.ViewModel;
+﻿using ProjectsScheduler.Core.InputData;
+using ProjectsScheduler.Desktop.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,8 +35,12 @@ namespace ProjectsScheduler.Desktop.View
                 if (((Node)e.NewValue).Original is ProjectViewModel)
                 {
                     var view = new ProjectProperiesView();
-                    view.DataContext = ((Node)e.NewValue).Original;
+                    var projectVM = ((Node)e.NewValue).Original;
+                    view.DataContext = projectVM;
                     Properties.Children.Add(view);
+
+                    var vm = (ProjectsSetViewModel)DataContext;
+                    vm.SelectedObject = projectVM;
                 }
             }
             else
@@ -43,15 +48,23 @@ namespace ProjectsScheduler.Desktop.View
                 if (e.NewValue is TaskViewModel)
                 {
                     var view = new TaskPropertiesView();
-                    view.DataContext = e.NewValue;
+                    var taskVM = e.NewValue;
+                    view.DataContext = taskVM;
                     Properties.Children.Add(view);
+
+                    var vm = (ProjectsSetViewModel)DataContext;
+                    vm.SelectedObject = taskVM;
                 }
 
                 if (e.NewValue is ResourceViewModel)
                 {
                     var view = new ResourcePropertiesView();
-                    view.DataContext = e.NewValue;
+                    var resourceVM = e.NewValue;
+                    view.DataContext = resourceVM;
                     Properties.Children.Add(view);
+
+                    var vm = (ProjectsSetViewModel)DataContext;
+                    vm.SelectedObject = resourceVM;
                 }
             }
         }
