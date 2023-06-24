@@ -15,6 +15,7 @@ namespace ProjectsScheduler.Core.OrToolsSolver
         public IntVar Start { get; set; }
         public IntVar End { get; set; }
         public IntervalVar Interval { get; set; }
+        public IntVar Deadline { get; set; }
     }
 
     class ModelResource
@@ -48,6 +49,8 @@ namespace ProjectsScheduler.Core.OrToolsSolver
                     modelTask.Start = model.NewIntVar(0, projectSet.horizon, task.ID);
                     modelTask.End = model.NewIntVar(0, projectSet.horizon, task.ID);
                     modelTask.Interval = model.NewIntervalVar(modelTask.Start, task.Duration, modelTask.End, task.ID);
+                    if (task.Deadline != null)
+                        modelTask.Deadline = model.NewConstant(task.Deadline.Value);
                     modelProject.ModelTasks.Add(modelTask);
 
 

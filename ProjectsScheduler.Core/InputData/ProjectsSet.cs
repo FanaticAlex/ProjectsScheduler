@@ -24,9 +24,21 @@ namespace ProjectsScheduler.Core.InputData
             ResourceName = resourceName;
             ID = Guid.NewGuid().ToString();
         }
-        public string ResourceName { get; set; }
         public int Duration { get; set; }
+        public string ResourceName { get; set; }
         public string ID { get; }
+        private int? _deadline;
+        public int? Deadline
+        {
+            get { return _deadline; }
+            set
+            {
+                if (value < Duration)
+                    throw new Exception("Дэдлайн не может быть меньше длительности задачи.");
+
+                _deadline = value;
+            }
+        }
     }
 
     public class Resource

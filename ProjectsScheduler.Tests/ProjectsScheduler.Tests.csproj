@@ -36,6 +36,9 @@
     <None Update="Example_simple_dividedTask.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Example_simple_deadlines.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Example_simple_vacations.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -58,6 +58,24 @@ namespace ProjectsScheduler.Tests
             Assert.Equal(1, result.OverallTime);
         }
 
+        /// <summary>
+        /// У каждой задачи может быть дэдлайн - точка вермени до которой должна быть выполнена задача.
+        /// </summary>
+        [Fact]
+        public void Test_Example_simple_Deadlines()
+        {
+            var data = File.ReadAllText("Example_simple_deadlines.json");
+            var projectSet = JsonSerializer.Deserialize<ProjectsSet>(data);
+            var solver = new ProjectSchedulerProblemSolver();
+            var result = solver.Solve(projectSet);
+
+            var task = projectSet.ProjectList.Single(p => p.Name == "Project 4").Tasks.First();
+
+            Assert.True(result.Success);
+            Assert.Equal(12, result.OverallTime);
+            Assert.True(result.TaskIdToTaskStartTime[task.ID] <= task.Deadline);
+        }
+
         [Fact]
         public void Test_Example1()
         {

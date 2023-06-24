@@ -39,7 +39,7 @@
         {
           "ResourceName": "R",
           "Duration": 3,
-          "Deadline":  3
+          "Deadline": 3
         }
       ]
     }
