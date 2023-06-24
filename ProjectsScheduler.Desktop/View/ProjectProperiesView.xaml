@@ -17,6 +17,6 @@
         </Grid.ColumnDefinitions>
             
         <Label Grid.Row="0" Grid.Column="0" FontSize="16" Content="Название"></Label>
-        <TextBox Margin="1" Grid.Row="0" Grid.Column="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Name}"></TextBox>
+        <TextBox Grid.Row="0" Grid.Column="1" FontSize="16" Margin="1" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Name}"></TextBox>
     </Grid>
 </UserControl>

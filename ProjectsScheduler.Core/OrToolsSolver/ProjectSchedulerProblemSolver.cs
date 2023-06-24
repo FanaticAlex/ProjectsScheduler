@@ -107,12 +107,12 @@ namespace ProjectsScheduler.Core.OrToolsSolver
                         model.AddMinEquality(mine, ee);
 
                         var con1 = model.NewBoolVar("con1_" + name);
-                        model.Add(t0 + 1 > mine).OnlyEnforceIf(con1);
-                        model.Add(t0 + 1 <= mine).OnlyEnforceIf(con1.Not());
+                        model.Add(t0 > mine).OnlyEnforceIf(con1);
+                        model.Add(t0 <= mine).OnlyEnforceIf(con1.Not());
 
                         var con2 = model.NewBoolVar("con2_" + name);
-                        model.Add(t0 < maxs).OnlyEnforceIf(con2);
-                        model.Add(t0 >= maxs).OnlyEnforceIf(con2.Not());
+                        model.Add(t0 + 1 < maxs).OnlyEnforceIf(con2);
+                        model.Add(t0 + 1 >= maxs).OnlyEnforceIf(con2.Not());
 
                         model.AddBoolOr(new List<ILiteral>() { con1, con2 });
                     }

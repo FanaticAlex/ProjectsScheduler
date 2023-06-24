@@ -110,16 +110,18 @@ namespace ProjectsScheduler.Desktop.View
                 Grid.SetColumn(resourceControl, 1);
 
 
-                // заполнить load
-                for (int j = 0; j < resource.Load.Count; j++)
+                // заполнить загруженность/мощьность
+                for (int j = 0; j < timeMax; j++)
                 {
-                    var point = resource.Load[j];
-
                     var resourcePointControl = GetDefaultCellControl();
-                    resourcePointControl.Background = new SolidColorBrush(resource.ResourceColor);
+                    resourcePointControl.Content = resource.GetMaxParallelTask(j);
+
+                    if (resource.Load.Contains(j))
+                        resourcePointControl.Background = new SolidColorBrush(resource.ResourceColor);
+
                     ResourceTimeline.Children.Add(resourcePointControl);
                     Grid.SetRow(resourcePointControl, i);
-                    Grid.SetColumn(resourcePointControl, point);
+                    Grid.SetColumn(resourcePointControl, j);
                 }
             }
         }

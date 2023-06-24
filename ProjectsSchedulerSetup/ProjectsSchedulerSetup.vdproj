@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0098FA59BB4F49189C9BC175F8EE1E5F"
+        "MsmKey" = "8:_FDE101CB0B6645E5AF91F2A47B25FC30"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -173,7 +173,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ProjectsSchedulerSetup"
         "ProductCode" = "8:{6A797090-A057-42C4-ACFB-E004AD91B2DE}"
-        "PackageCode" = "8:{B456C58C-D7FB-4FBF-8CAF-9F5B262FCE02}"
+        "PackageCode" = "8:{1D2E1821-58C9-41E1-805E-904F1137FEA5}"
         "UpgradeCode" = "8:{2B279295-F8CC-4589-BAC2-8F44BB6EEF39}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -293,20 +293,6 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_091AF129ADD54B3DAAFD425C6A5B55C1"
-            {
-            "Name" = "8:ProjectsScheduler"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_0098FA59BB4F49189C9BC175F8EE1E5F"
-            "Folder" = "8:_14E6D0D79FC949CDB053D9468E263791"
-            "WorkingFolder" = "8:_5B2000DA56C140FBB8B5DB68CCFFABA9"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
         }
         "UserInterface"
         {
@@ -706,63 +692,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0098FA59BB4F49189C9BC175F8EE1E5F"
-            {
-            "SourcePath" = "8:..\\ProjectsScheduler\\obj\\Release\\net7.0\\apphost.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_5B2000DA56C140FBB8B5DB68CCFFABA9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:PublishItems"
-            "OutputProjectGuid" = "8:{04232C9B-B7EE-410A-8FB7-23F48D4A48D6}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_57921993C6704DD1B226DCD642D475C2"
-            {
-            "SourcePath" = "8:"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_5B2000DA56C140FBB8B5DB68CCFFABA9"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:SatelliteDllsProjectOutputGroupDependencies"
-            "OutputProjectGuid" = "8:{04232C9B-B7EE-410A-8FB7-23F48D4A48D6}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A38BFADB79C1423DB02E8656AF0AFC81"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3A78FDD486CC463488273820E29C750A"
             {
             "SourcePath" = "8:"
             "TargetName" = "8:"
@@ -784,7 +714,63 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:SDKRedistOutputGroup"
-            "OutputProjectGuid" = "8:{04232C9B-B7EE-410A-8FB7-23F48D4A48D6}"
+            "OutputProjectGuid" = "8:{02E1424D-EDFB-42C8-9E64-4BCD4ACDCB88}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_522E15FB5F1B42949C30D07D8B6BC450"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_5B2000DA56C140FBB8B5DB68CCFFABA9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:SatelliteDllsProjectOutputGroupDependencies"
+            "OutputProjectGuid" = "8:{02E1424D-EDFB-42C8-9E64-4BCD4ACDCB88}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FDE101CB0B6645E5AF91F2A47B25FC30"
+            {
+            "SourcePath" = "8:..\\ProjectsScheduler.Desktop\\obj\\Release\\net7.0-windows\\apphost.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_5B2000DA56C140FBB8B5DB68CCFFABA9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:PublishItems"
+            "OutputProjectGuid" = "8:{02E1424D-EDFB-42C8-9E64-4BCD4ACDCB88}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {

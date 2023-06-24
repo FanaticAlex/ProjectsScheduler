@@ -17,9 +17,10 @@ namespace ProjectsScheduler.Desktop.ViewModel
         }
         public Color ResourceColor { get; set; }
         public List<int> Load { get; set; }
-        public int MaxParallelTasks { get; set; }
 
         public Resource Resource { get; set; }
+
+        public string Vacations => $"[{String.Join(",", Resource.Vacations)}]";
 
         public ResourceViewModel()
         {
@@ -33,7 +34,12 @@ namespace ProjectsScheduler.Desktop.ViewModel
             var resourcesToColors = ResourceViewModel.GetResourceToColor(resources);
             ResourceColor = resourcesToColors[resource.Name];
             Load = GetResourceLoad(resourceTasks, result);
-            MaxParallelTasks = resource.MaxParallelTasks;
+        }
+
+        public int GetMaxParallelTask(int time)
+        {
+            var isVacation = Resource.Vacations.Contains(time) ? 1 : 0;
+            return Resource.MaxParallelTasks - isVacation;
         }
 
         public static Dictionary<string, Color> GetResourceToColor(List<Resource> resources)

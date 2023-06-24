@@ -15,6 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -26,7 +27,7 @@
         <TextBox Grid.Row="0" Grid.Column="1" Margin="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Name}"></TextBox>
 
         <Label Grid.Row="1" Grid.Column="0" FontSize="16" Content="Мощность"></Label>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding MaxParallelTasks}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Path=Resource.MaxParallelTasks}"></TextBox>
 
         <Label Grid.Row="2" Grid.Column="0" FontSize="16" Content="Цвет"></Label>
         <Label Grid.Row="2" Grid.Column="1" Margin="1" FontSize="16">
@@ -34,5 +35,8 @@
                 <SolidColorBrush x:Name="backgroundBrush" Color="{Binding ResourceColor}" />
             </Label.Background>
         </Label>
+
+        <Label Grid.Row="3" Grid.Column="0" FontSize="16" Content="Отпуска"></Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Vacations, Mode=OneWay}"></TextBox>
     </Grid>
 </UserControl>
