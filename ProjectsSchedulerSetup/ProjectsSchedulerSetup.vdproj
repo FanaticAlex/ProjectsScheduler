@@ -293,6 +293,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E72482C653B0497FA968412A6A769145"
+            {
+            "Name" = "8:ProjectsScheduler"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_FDE101CB0B6645E5AF91F2A47B25FC30"
+            "Folder" = "8:_14E6D0D79FC949CDB053D9468E263791"
+            "WorkingFolder" = "8:_5B2000DA56C140FBB8B5DB68CCFFABA9"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {

@@ -56,7 +56,9 @@ namespace ProjectsScheduler.Core.OrToolsSolver
                 {
                     var firstTask = modelData.ModelProjects[j].ModelTasks[t];
                     var secondTask = modelData.ModelProjects[j].ModelTasks[t + 1];
-                    if (firstTask.Task.ResourceName != secondTask.Task.ResourceName)
+                    if (firstTask.Task.ResourceName == secondTask.Task.ResourceName)
+                        model.Add(firstTask.Start <= secondTask.Start); // для случая тасков с одинаковыми ресурсами, они могут выполняться одновременно
+                    else
                         model.Add(firstTask.End <= secondTask.Start);
                 }
             }
