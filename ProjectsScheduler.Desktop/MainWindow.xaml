@@ -28,6 +28,7 @@
                 <Button Command="{Binding LoadCommand}">Загрузить пример</Button>
                 <Button Command="{Binding AddProjectCommand}">Добавить проект</Button>
                 <Button Command="{Binding AddTaskCommand}">Добавить таск</Button>
+                <Button Command="{Binding AddResourceCommand}">Добавить ресурс</Button>
             </ToolBar>
         </ToolBarTray>
         

@@ -22,30 +22,8 @@ namespace ProjectsScheduler.Desktop.ViewModel
 
         public string Vacations => $"[{String.Join(",", Resource.Vacations)}]";
 
-        public ResourceViewModel()
+        public static List<Color> DefaultColors = new List<Color>()
         {
-            Resource = new Resource();
-        }
-
-        public ResourceViewModel(Resource resource, Result result, List<ProjectTask> tasks, List<Resource> resources)
-        {
-            Resource = resource;
-            var resourceTasks = tasks?.Where(t => t.ResourceName == resource.Name).ToList();
-            var resourcesToColors = ResourceViewModel.GetResourceToColor(resources);
-            ResourceColor = resourcesToColors[resource.Name];
-            Load = GetResourceLoad(resourceTasks, result);
-        }
-
-        public int GetMaxParallelTask(int time)
-        {
-            var isVacation = Resource.Vacations.Contains(time) ? 1 : 0;
-            return Resource.MaxParallelTasks - isVacation;
-        }
-
-        public static Dictionary<string, Color> GetResourceToColor(List<Resource> resources)
-        {
-            var colors = new List<Color>()
-            {
             Color.FromRgb(125, 159, 211),
             Color.FromRgb(246, 231, 35),
             Color.FromRgb(155, 226, 0),
@@ -58,21 +36,31 @@ namespace ProjectsScheduler.Desktop.ViewModel
             Color.FromRgb(255, 0, 100),
             Color.FromRgb(255, 100, 100),
             Color.FromRgb(255, 100, 0),
-            };
+        };
 
-            if (resources.Count > colors.Count)
-            {
-                Console.WriteLine("Too many resource");
-                return null;
-            }
+        public ResourceViewModel()
+        {
+            Resource = new Resource();
+        }
 
-            var result = new Dictionary<string, Color>();
-            for (var i = 0; i < resources.Count; i++)
-            {
-                result.Add(resources[i].Name, colors[i]);
-            }
+        public ResourceViewModel(Resource resource, Result result, List<ProjectTask> tasks, List<Resource> resources)
+        {
+            Resource = resource;
+            var resourceTasks = tasks?.Where(t => t.ResourceName == resource.Name).ToList();
+            ResourceColor = GetNextColor(resources.IndexOf(resource));
+            Load = GetResourceLoad(resourceTasks, result);
+        }
 
-            return result;
+        public int GetMaxParallelTask(int time)
+        {
+            var isVacation = Resource.Vacations.Contains(time) ? 1 : 0;
+            return Resource.MaxParallelTasks - isVacation;
+        }
+
+        private Color GetNextColor(int number)
+        {
+            var color = DefaultColors[number];
+            return color;
         }
 
         private static List<int> GetResourceLoad(List<ProjectTask> tasks, Result result)

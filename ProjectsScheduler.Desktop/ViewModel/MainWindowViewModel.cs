@@ -29,6 +29,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
         public ICommand LoadCommand { get; set; }
         public ICommand AddProjectCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
+        public ICommand AddResourceCommand { get; set; }
 
         public ProjectsSetViewModel ProjectsSetViewModel { get; set; }
 
@@ -44,6 +45,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
             LoadCommand = new RelayCommand(Load);
             AddProjectCommand = new RelayCommand(AddProject);
             AddTaskCommand = new RelayCommand(AddTask, CanExecuteAddTask);
+            AddResourceCommand = new RelayCommand(AddResource);
 
             ProjectsSetViewModel = new ProjectsSetViewModel();
             ResultsViewModel = new ResultsViewModel();
@@ -91,7 +93,13 @@ namespace ProjectsScheduler.Desktop.ViewModel
 
         private void AddProject(object? parameter)
         {
-            var newProject = new Project("Новый проект");
+            var newName = "Новый проект";
+            while (ProjectsSet.ProjectList.Select(p => p.Name).Contains(newName))
+            {
+                newName = "Новый_" + newName;
+            }
+
+            var newProject = new Project(newName);
             ProjectsSet.ProjectList.Add(newProject);
             ProjectsSetViewModel.SetProjectSet(ProjectsSet);
         }
@@ -109,6 +117,19 @@ namespace ProjectsScheduler.Desktop.ViewModel
         private bool CanExecuteAddTask(object? parameter)
         {
             return (ProjectsSetViewModel.SelectedObject is ProjectViewModel);
+        }
+
+        private void AddResource(object? parameter)
+        {
+            var newName = "Новый проект";
+            while (ProjectsSet.Resources.Select(r => r.Name).Contains(newName))
+            {
+                newName = "Новый_" + newName;
+            }
+
+            var newResource = new Resource() { Name = newName, MaxParallelTasks = 1 };
+            ProjectsSet.Resources.Add(newResource);
+            ProjectsSetViewModel.SetProjectSet(ProjectsSet);
         }
     }
 }
