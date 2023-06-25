@@ -96,6 +96,20 @@ namespace ProjectsScheduler.Core.OrToolsSolver
                 // ограничиваем пересечение m интервалов в даты отпусков
                 foreach (var t0 in modelResource.Resource.Vacations)
                 {
+                    // t0 - отпуск
+
+                    //          t0
+                    // s1______e1|
+                    // s2______e2|
+
+                    // t0        
+                    // |s1_______e1
+                    // |s2_______e2
+
+                    // s1_____t0__e1
+                    //    s2__t0______e2
+
+                    // s2(maxs)   e1(mine)
                     // t0 > min(e) || t0 < max(s)
                     var combinations1 = GetCombinations(tasks.Count, modelResource.Resource.MaxParallelTasks);
                     foreach (var combination in combinations1)
@@ -109,12 +123,12 @@ namespace ProjectsScheduler.Core.OrToolsSolver
                         model.AddMinEquality(mine, ee);
 
                         var con1 = model.NewBoolVar("con1_" + name);
-                        model.Add(t0 > mine).OnlyEnforceIf(con1);
-                        model.Add(t0 <= mine).OnlyEnforceIf(con1.Not());
+                        model.Add(t0 >= mine).OnlyEnforceIf(con1);
+                        model.Add(t0 < mine).OnlyEnforceIf(con1.Not());
 
                         var con2 = model.NewBoolVar("con2_" + name);
-                        model.Add(t0 + 1 < maxs).OnlyEnforceIf(con2);
-                        model.Add(t0 + 1 >= maxs).OnlyEnforceIf(con2.Not());
+                        model.Add(t0 + 1 <= maxs).OnlyEnforceIf(con2);
+                        model.Add(t0 + 1 > maxs).OnlyEnforceIf(con2.Not());
 
                         model.AddBoolOr(new List<ILiteral>() { con1, con2 });
                     }
