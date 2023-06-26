@@ -12,57 +12,27 @@
     </UserControl.DataContext>
 
     <ScrollViewer Background="#FFDEEFEF">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <Grid Name="TimeAxis" Margin="0,0,0,0" Grid.Row="0" Grid.Column="1">
+        <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-        </Grid>
 
-        <Grid Name="TasksTimelineLeft" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0">
-            <Grid.RowDefinitions>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-            </Grid.ColumnDefinitions>
+            <Grid Name="HeaderTasks" Grid.Row="0" Grid.Column="0"/>
+            <Grid Name="TimeAxis" Grid.Row="0" Grid.Column="1"/>
+            <Grid Name="TasksTimelineLeft" Grid.Row="1" Grid.Column="0"/>
+            <Grid Name="TasksTimeline" ShowGridLines="True"  Grid.Row="1" Grid.Column="1"/>
+            <Grid Name="ResourceTimelineLeft" Grid.Row="3" Grid.Column="0"/>
+            <Grid Name="ResourceTimeline" MinHeight="100" ShowGridLines="True" Grid.Row="3" Grid.Column="1" />
         </Grid>
-
-        <Grid Name="TasksTimeline" ShowGridLines="True"  Grid.Row="1" Grid.Column="1">
-            <Grid.RowDefinitions>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-            </Grid.ColumnDefinitions>
-        </Grid>
-
-
-        <Grid Name="ResourceTimelineLeft" Margin="0,0,0,0" Grid.Row="3" Grid.Column="0">
-            <Grid.RowDefinitions>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-            </Grid.ColumnDefinitions>
-        </Grid>
-        
-        <Grid Name="ResourceTimeline" MinHeight="100" ShowGridLines="True" Grid.Row="3" Grid.Column="1" >
-            <Grid.RowDefinitions>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-            </Grid.ColumnDefinitions>
-        </Grid>
-    </Grid>
-
     </ScrollViewer>
 
 </UserControl>

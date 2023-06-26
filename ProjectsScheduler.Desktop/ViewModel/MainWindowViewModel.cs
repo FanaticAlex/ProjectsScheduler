@@ -27,6 +27,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
 
         public ICommand RunCommand { get; set; }
         public ICommand LoadCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
         public ICommand AddProjectCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
         public ICommand AddResourceCommand { get; set; }
@@ -43,6 +44,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
         {
             RunCommand = new RelayCommand(Run);
             LoadCommand = new RelayCommand(Load);
+            SaveCommand = new RelayCommand(Save);
             AddProjectCommand = new RelayCommand(AddProject);
             AddTaskCommand = new RelayCommand(AddTask, CanExecuteAddTask);
             AddResourceCommand = new RelayCommand(AddResource);
@@ -91,6 +93,16 @@ namespace ProjectsScheduler.Desktop.ViewModel
             }
         }
 
+        private void Save(object? parameter)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                var json = JsonSerializer.Serialize(ProjectsSet);
+                File.WriteAllText(saveFileDialog.FileName, json);
+            }
+        }
+
         private void AddProject(object? parameter)
         {
             var newName = "Новый проект";
@@ -121,7 +133,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
 
         private void AddResource(object? parameter)
         {
-            var newName = "Новый проект";
+            var newName = "Новый ресурс";
             while (ProjectsSet.Resources.Select(r => r.Name).Contains(newName))
             {
                 newName = "Новый_" + newName;

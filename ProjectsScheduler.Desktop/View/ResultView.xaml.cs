@@ -33,6 +33,17 @@ namespace ProjectsScheduler.Desktop.View
         {
             var vm = (ResultsViewModel)DataContext;
 
+            // хэдеры
+            InitGrid(HeaderTasks, 1, 2, new GridLength(1, GridUnitType.Star), GridLength.Auto);
+            var progectsHeader = GetDefaultLegendControl("Проекты");
+            HeaderTasks.Children.Add(progectsHeader);
+            Grid.SetRow(progectsHeader, 0);
+            Grid.SetColumn(progectsHeader, 0);
+            var tasksHeader = GetDefaultLegendControl("Таски");
+            HeaderTasks.Children.Add(tasksHeader);
+            Grid.SetRow(tasksHeader, 0);
+            Grid.SetColumn(tasksHeader, 1);
+
             // перестроить таблицу оси времени
             var timeMax = vm.TimeMax;
             InitGrid(TimeAxis, 1, timeMax, new GridLength(CellWidth), new GridLength(CellHeight));
@@ -68,8 +79,7 @@ namespace ProjectsScheduler.Desktop.View
                 for (int j = 0; j < project.Tasks.Count; j++)
                 {
                     var task = project.Tasks[j];
-                    var taskControl = GetDefaultLegendControl();
-                    taskControl.Content = task.Name;
+                    var taskControl = GetDefaultLegendControl(task.Name);
                     TasksTimelineLeft.Children.Add(taskControl);
                     Grid.SetRow(taskControl, nextProjectRow + j);
                     Grid.SetColumn(taskControl, 1);
@@ -103,8 +113,7 @@ namespace ProjectsScheduler.Desktop.View
             {
                 var resource = vm.Resources[i];
 
-                var resourceControl = GetDefaultLegendControl();
-                resourceControl.Content = resource.Name;
+                var resourceControl = GetDefaultLegendControl(resource.Name);
                 ResourceTimelineLeft.Children.Add(resourceControl);
                 Grid.SetRow(resourceControl, i);
                 Grid.SetColumn(resourceControl, 1);
@@ -167,21 +176,22 @@ namespace ProjectsScheduler.Desktop.View
             var control = new ProjectHeaderView();
             control.SetProjectName(text);
             control.Height = size * CellHeight;
-            //control.Width = 150;
             control.FontSize = FontSize;
             control.HorizontalAlignment = HorizontalAlignment.Right;
             control.SetBracketsSize(size * CellHeight - 5);
             return control;
         }
 
-        private Label GetDefaultLegendControl()
+        private Label GetDefaultLegendControl(string text)
         {
             var control = new Label();
-            //control.Width = 100;
+            control.Content = text;
+            //control.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(100,100,100));
             control.Height = CellHeight;
             control.FontSize = FontSize;
+            control.HorizontalAlignment= HorizontalAlignment.Center;
             control.VerticalContentAlignment = VerticalAlignment.Center;
-            control.HorizontalContentAlignment = HorizontalAlignment.Left;
+            control.HorizontalContentAlignment = HorizontalAlignment.Center;
             return control;
         }
     }
