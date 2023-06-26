@@ -34,7 +34,7 @@
             </TreeView.ItemTemplate>
         </TreeView>
 
-        <Border Grid.Row="0" Grid.Column="3" BorderBrush="Black" BorderThickness="1">
+        <Border Grid.Row="0" Grid.Column="3" BorderBrush="#FF848484" BorderThickness="1">
             <StackPanel Name="Properties" />
         </Border>
     </Grid>

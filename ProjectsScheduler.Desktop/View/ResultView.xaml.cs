@@ -78,6 +78,7 @@ namespace ProjectsScheduler.Desktop.View
                 // таски
                 for (int j = 0; j < project.Tasks.Count; j++)
                 {
+                    // название
                     var task = project.Tasks[j];
                     var taskControl = GetDefaultLegendControl(task.Name);
                     TasksTimelineLeft.Children.Add(taskControl);
@@ -91,6 +92,15 @@ namespace ProjectsScheduler.Desktop.View
                     Grid.SetRow(intervalControl, nextProjectRow + j);
                     Grid.SetColumn(intervalControl, task.Start.Value);
                     Grid.SetColumnSpan(intervalControl, task.Duration);
+
+                    // дэдлайн
+                    if (task.Deadline != null)
+                    {
+                        var deadlineControl = GetDeadlineControl();
+                        TasksTimeline.Children.Add(deadlineControl);
+                        Grid.SetRow(deadlineControl, nextProjectRow + j);
+                        Grid.SetColumn(deadlineControl, task.Deadline.Value);
+                    }
                 }
 
                 nextProjectRow += project.Tasks.Count;
@@ -168,6 +178,15 @@ namespace ProjectsScheduler.Desktop.View
             control.FontSize = FontSize;
             control.VerticalContentAlignment = VerticalAlignment.Center;
             control.HorizontalContentAlignment = HorizontalAlignment.Center;
+            return control;
+        }
+
+        private Image GetDeadlineControl()
+        {
+            var control = new Image();
+            control.Source = new BitmapImage(new Uri("/Resources/DeadlineInage.png", UriKind.Relative));
+            control.Width = CellWidth;
+            control.Height = CellHeight;
             return control;
         }
 

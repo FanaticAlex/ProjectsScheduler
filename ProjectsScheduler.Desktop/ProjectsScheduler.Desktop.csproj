@@ -8,7 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\DeadlineInage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ProjectsScheduler.Core\ProjectsScheduler.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\DeadlineInage.png" />
   </ItemGroup>
 
   <ItemGroup>

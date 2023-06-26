@@ -12,6 +12,30 @@
     <Window.DataContext>
         <viewmodel:MainWindowViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="TextBox">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Margin" Value="1" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -35,5 +59,6 @@
         
         <view:ProjectsSetView Margin="10" Grid.Row="1" Grid.Column="0" x:Name="ProjectsSetView"/>
         <view:ResultView Margin="10" Grid.Row="1" Grid.Column="1" x:Name="ResultView" BorderBrush="Black" BorderThickness="1"/>
+
     </Grid>
 </Window>

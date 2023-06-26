@@ -36,6 +36,12 @@ namespace ProjectsScheduler.Desktop.ViewModel
 
         public List<ResourceViewModel> ResourcesSet { get; set; } = new List<ResourceViewModel>();
 
+        public int? Deadline
+        {
+            get { return ProjectTask.Deadline; }
+            set { ProjectTask.Deadline = value; }
+        }
+
         public ProjectTask ProjectTask { get; set; }
 
         public TaskViewModel()

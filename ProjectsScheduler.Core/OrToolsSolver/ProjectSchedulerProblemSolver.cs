@@ -32,18 +32,28 @@ namespace ProjectsScheduler.Core.OrToolsSolver
             // Solve the problem.
             CpSolverStatus status = solver.Solve(model);
 
-            var result = new Result();
-            result.Success = (status == CpSolverStatus.Optimal);
-
-            var allModelTasks = modelData.ModelProjects.SelectMany(p => p.ModelTasks);
-            foreach (var modelTask in allModelTasks)
+            switch(status)
             {
-                result.TaskIdToTaskStartTime.Add(modelTask.Task.ID, unchecked((int)solver.Value(modelTask.Start)));
-            }
+                case CpSolverStatus.Optimal:
+                    {
+                        var result = new Result();
+                        result.Success = (status == CpSolverStatus.Optimal);
+                        var allModelTasks = modelData.ModelProjects.SelectMany(p => p.ModelTasks);
+                        foreach (var modelTask in allModelTasks)
+                        {
+                            result.TaskIdToTaskStartTime.Add(modelTask.Task.ID, unchecked((int)solver.Value(modelTask.Start)));
+                        }
 
-            result.OverallTime = unchecked((int)solver.ObjectiveValue);
-            result.TimeSpent = stopwatch.Elapsed;
-            return result;
+                        result.OverallTime = unchecked((int)solver.ObjectiveValue);
+                        result.TimeSpent = stopwatch.Elapsed;
+                        return result;
+                    }
+                case CpSolverStatus.Infeasible: throw new Exception("При данных условиях задача не решаема.");
+                case CpSolverStatus.Feasible: throw new Exception("Процесс решения был остановлен.");
+                case CpSolverStatus.ModelInvalid: throw new Exception("Заданные условия некорректны.");
+                case CpSolverStatus.Unknown: throw new Exception("Unknown error.");
+                default: throw new Exception("Статус решения не определен");
+            }
         }
 
         private void InitModel(ModelData modelData, CpModel model)

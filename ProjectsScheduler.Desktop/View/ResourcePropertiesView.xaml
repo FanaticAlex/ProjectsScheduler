@@ -23,20 +23,20 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" FontSize="16" Content="Название"></Label>
-        <TextBox Grid.Row="0" Grid.Column="1" Margin="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Name}"></TextBox>
+        <Label Grid.Row="0" Grid.Column="0" Content="Название"></Label>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-        <Label Grid.Row="1" Grid.Column="0" FontSize="16" Content="Мощность"></Label>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Path=Resource.MaxParallelTasks}"></TextBox>
+        <Label Grid.Row="1" Grid.Column="0" Content="Мощность"></Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Resource.MaxParallelTasks, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-        <Label Grid.Row="2" Grid.Column="0" FontSize="16" Content="Цвет"></Label>
-        <Label Grid.Row="2" Grid.Column="1" Margin="1" FontSize="16">
+        <Label Grid.Row="2" Grid.Column="0" Content="Цвет"></Label>
+        <Label Grid.Row="2" Grid.Column="1" >
             <Label.Background>
                 <SolidColorBrush x:Name="backgroundBrush" Color="{Binding ResourceColor}" />
             </Label.Background>
         </Label>
 
-        <Label Grid.Row="3" Grid.Column="0" FontSize="16" Content="Отпуска"></Label>
-        <TextBox Grid.Row="3" Grid.Column="1" Margin="1" FontSize="16" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Vacations, Mode=OneWay}"></TextBox>
+        <Label Grid.Row="3" Grid.Column="0" Content="Отпуска"></Label>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Vacations, Mode=OneWay}"></TextBox>
     </Grid>
 </UserControl>

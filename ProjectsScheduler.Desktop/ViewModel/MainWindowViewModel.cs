@@ -16,13 +16,6 @@ namespace ProjectsScheduler.Desktop.ViewModel
 {
     class MainWindowViewModel : BaseVewModel
     {
-        private int _selectedTabIndex = 0;
-        public int SelectedTabIndex
-        {
-            get { return _selectedTabIndex; }
-            set { _selectedTabIndex = value; OnPropertyChanged(nameof(SelectedTabIndex)); }
-        }
-
         public event EventHandler SolutionUpdated;
 
         public ICommand RunCommand { get; set; }
@@ -57,11 +50,17 @@ namespace ProjectsScheduler.Desktop.ViewModel
 
         private void Run(object? parameter)
         {
-            var solver = new ProjectSchedulerProblemSolver();
-            Result = solver.Solve(ProjectsSet);
-            ResultsViewModel.SetData(Result, ProjectsSet);
-            SolutionUpdated?.Invoke(this, null);
-            SelectedTabIndex = 1;
+            try
+            {
+                var solver = new ProjectSchedulerProblemSolver();
+                Result = solver.Solve(ProjectsSet);
+                ResultsViewModel.SetData(Result, ProjectsSet);
+                SolutionUpdated?.Invoke(this, null);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Load(object? parameter)
