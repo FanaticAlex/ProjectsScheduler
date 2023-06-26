@@ -1,5 +1,6 @@
 ﻿using Google.OrTools.Sat;
 using ProjectsScheduler.Core.InputData;
+using System.Threading.Tasks;
 
 namespace ProjectsScheduler.Core.OrToolsSolver
 {
@@ -7,6 +8,8 @@ namespace ProjectsScheduler.Core.OrToolsSolver
     {
         public Project Project { get; set; }
         public List<ModelTask> ModelTasks { get; set; } = new List<ModelTask>();
+        public IntVar Deadline { get; set; }
+
     }
 
     class ModelTask
@@ -15,7 +18,6 @@ namespace ProjectsScheduler.Core.OrToolsSolver
         public IntVar Start { get; set; }
         public IntVar End { get; set; }
         public IntervalVar Interval { get; set; }
-        public IntVar Deadline { get; set; }
     }
 
     class ModelResource
@@ -41,6 +43,8 @@ namespace ProjectsScheduler.Core.OrToolsSolver
             {
                 var modelProject = new ModelProject();
                 modelProject.Project = project;
+                if (project.Deadline != null)
+                    modelProject.Deadline = model.NewConstant(project.Deadline.Value);
                 ModelProjects.Add(modelProject);
                 foreach (var task in project.Tasks)
                 {
@@ -49,8 +53,6 @@ namespace ProjectsScheduler.Core.OrToolsSolver
                     modelTask.Start = model.NewIntVar(0, projectSet.horizon, task.ID);
                     modelTask.End = model.NewIntVar(0, projectSet.horizon, task.ID);
                     modelTask.Interval = model.NewIntervalVar(modelTask.Start, task.Duration, modelTask.End, task.ID);
-                    if (task.Deadline != null)
-                        modelTask.Deadline = model.NewConstant(task.Deadline.Value);
                     modelProject.ModelTasks.Add(modelTask);
 
 

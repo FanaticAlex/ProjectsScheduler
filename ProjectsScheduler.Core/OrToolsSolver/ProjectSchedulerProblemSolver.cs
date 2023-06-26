@@ -73,12 +73,11 @@ namespace ProjectsScheduler.Core.OrToolsSolver
                 }
             }
 
-            // Ограничения на дэдлайны задач
-            var allTasks = modelData.ModelProjects.SelectMany(p => p.ModelTasks).ToList();
-            foreach(var task in allTasks)
+            // Ограничения на дэдлайны проектов
+            foreach(var project in modelData.ModelProjects)
             {
-                if (task.Deadline != null)
-                    model.Add(task.End <= task.Deadline);
+                if (project.Deadline != null)
+                    model.Add(project.ModelTasks.Last().End <= project.Deadline);
             }
 
             // Ограничения ресурсов

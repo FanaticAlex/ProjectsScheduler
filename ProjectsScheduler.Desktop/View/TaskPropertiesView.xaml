@@ -38,8 +38,5 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-
-        <Label Grid.Row="4" Grid.Column="0" Content="Дэдлайн"></Label>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Deadline, UpdateSourceTrigger=PropertyChanged}"></TextBox>
     </Grid>
 </UserControl>

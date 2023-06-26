@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf.WellKnownTypes;
+using System;
 
 namespace ProjectsScheduler.Core.InputData
 {
@@ -14,6 +15,19 @@ namespace ProjectsScheduler.Core.InputData
 
         public string Name { get; set; }
         public List<ProjectTask> Tasks { get; set; } = new List<ProjectTask>();
+
+        private int? _deadline;
+        public int? Deadline
+        {
+            get { return _deadline; }
+            set
+            {
+                if (value < Tasks.Select(t => t.Duration).Sum())
+                    throw new Exception("Дэдлайн не может быть меньше длительности задачи.");
+
+                _deadline = value;
+            }
+        }
     }
 
     public class ProjectTask
@@ -27,18 +41,6 @@ namespace ProjectsScheduler.Core.InputData
         public int Duration { get; set; }
         public string ResourceName { get; set; }
         public string ID { get; }
-        private int? _deadline;
-        public int? Deadline
-        {
-            get { return _deadline; }
-            set
-            {
-                if (value < Duration)
-                    throw new Exception("Дэдлайн не может быть меньше длительности задачи.");
-
-                _deadline = value;
-            }
-        }
     }
 
     public class Resource

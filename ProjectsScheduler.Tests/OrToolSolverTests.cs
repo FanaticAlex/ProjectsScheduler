@@ -69,11 +69,12 @@ namespace ProjectsScheduler.Tests
             var solver = new ProjectSchedulerProblemSolver();
             var result = solver.Solve(projectSet);
 
-            var task = projectSet.ProjectList.Single(p => p.Name == "Project 4").Tasks.First();
+            var project = projectSet.ProjectList.Single(p => p.Name == "Project 4");
+            var task = project.Tasks.First();
 
             Assert.True(result.Success);
             Assert.Equal(12, result.OverallTime);
-            Assert.True(result.TaskIdToTaskStartTime[task.ID] <= task.Deadline);
+            Assert.True(result.TaskIdToTaskStartTime[task.ID] <= project.Deadline);
         }
 
         [Fact]

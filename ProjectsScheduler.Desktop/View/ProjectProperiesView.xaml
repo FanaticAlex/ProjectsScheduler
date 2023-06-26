@@ -9,6 +9,8 @@
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -16,7 +18,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
             
-        <Label Grid.Row="0" Grid.Column="0" FontSize="16" Content="Название"></Label>
-        <TextBox Grid.Row="0" Grid.Column="1" FontSize="16" Margin="1" TextAlignment="Center" VerticalContentAlignment="Center" Text="{Binding Name}"></TextBox>
+        <Label Grid.Row="0" Grid.Column="0" Content="Название"></Label>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Дэдлайн"></Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Deadline, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        
     </Grid>
 </UserControl>

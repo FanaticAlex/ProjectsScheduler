@@ -94,12 +94,12 @@ namespace ProjectsScheduler.Desktop.View
                     Grid.SetColumnSpan(intervalControl, task.Duration);
 
                     // дэдлайн
-                    if (task.Deadline != null)
+                    if (project.Deadline != null)
                     {
                         var deadlineControl = GetDeadlineControl();
                         TasksTimeline.Children.Add(deadlineControl);
                         Grid.SetRow(deadlineControl, nextProjectRow + j);
-                        Grid.SetColumn(deadlineControl, task.Deadline.Value);
+                        Grid.SetColumn(deadlineControl, project.Deadline.Value);
                     }
                 }
 

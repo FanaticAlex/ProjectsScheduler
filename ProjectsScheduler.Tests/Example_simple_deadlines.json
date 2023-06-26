@@ -35,11 +35,11 @@
     },
     {
       "Name": "Project 4",
+      "Deadline": 3,
       "Tasks": [
         {
           "ResourceName": "R",
-          "Duration": 3,
-          "Deadline": 3
+          "Duration": 3
         }
       ]
     }

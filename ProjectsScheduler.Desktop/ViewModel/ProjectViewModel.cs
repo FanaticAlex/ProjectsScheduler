@@ -14,6 +14,12 @@ namespace ProjectsScheduler.Desktop.ViewModel
             set { Project.Name = value; }
         }
 
+        public int? Deadline
+        {
+            get { return Project.Deadline; }
+            set { Project.Deadline = value; }
+        }
+
         public List<TaskViewModel> Tasks { get; set; }
 
         public Project Project { get; set; }
