@@ -4,8 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjectsScheduler.Desktop.View"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <local:StringNullConverter x:Key="StringNullConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,7 +29,7 @@
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Дэдлайн"></Label>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Deadline, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Deadline, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource StringNullConverter}}"></TextBox>
         
     </Grid>
 </UserControl>

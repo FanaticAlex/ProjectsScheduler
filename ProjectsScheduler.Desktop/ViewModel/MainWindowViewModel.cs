@@ -95,6 +95,8 @@ namespace ProjectsScheduler.Desktop.ViewModel
         private void Save(object? parameter)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = "NewConfiguration";
+            saveFileDialog.Filter = "Json (*.json)|*.json";
             if (saveFileDialog.ShowDialog() == true)
             {
                 var json = JsonSerializer.Serialize(ProjectsSet);

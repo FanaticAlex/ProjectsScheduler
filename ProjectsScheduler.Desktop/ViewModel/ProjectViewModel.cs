@@ -1,7 +1,9 @@
 ﻿using ProjectsScheduler.Core;
 using ProjectsScheduler.Core.InputData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 
 namespace ProjectsScheduler.Desktop.ViewModel
@@ -16,8 +18,17 @@ namespace ProjectsScheduler.Desktop.ViewModel
 
         public int? Deadline
         {
-            get { return Project.Deadline; }
-            set { Project.Deadline = value; }
+            get { return Project?.Deadline; }
+            set
+            {
+                try
+                {
+                    Project.Deadline = value;
+                }
+                catch (Exception e) {
+                    MessageBox.Show(e.Message);
+                }
+            }
         }
 
         public List<TaskViewModel> Tasks { get; set; }
