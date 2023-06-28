@@ -23,6 +23,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
         public ICommand SaveCommand { get; set; }
         public ICommand AddProjectCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
+        public ICommand RemoveTaskCommand { get; set; }
         public ICommand AddResourceCommand { get; set; }
 
         public ProjectsSetViewModel ProjectsSetViewModel { get; set; }
@@ -39,7 +40,8 @@ namespace ProjectsScheduler.Desktop.ViewModel
             LoadCommand = new RelayCommand(Load);
             SaveCommand = new RelayCommand(Save);
             AddProjectCommand = new RelayCommand(AddProject);
-            AddTaskCommand = new RelayCommand(AddTask, CanExecuteAddTask);
+            AddTaskCommand = new RelayCommand(AddTask, CanExecuteAddTaskCommand);
+            RemoveTaskCommand = new RelayCommand(RemoveTask, CanExecuteRemoveTaskCommand);
             AddResourceCommand = new RelayCommand(AddResource);
 
             ProjectsSetViewModel = new ProjectsSetViewModel();
@@ -54,6 +56,29 @@ namespace ProjectsScheduler.Desktop.ViewModel
             {
                 var solver = new ProjectSchedulerProblemSolver();
                 Result = solver.Solve(ProjectsSet);
+                switch (Result.Status)
+                {
+                    case Status.Optimal:
+                        {
+                            break;
+                        }
+                    case Status.Stopped:
+                        {
+                            MessageBox.Show("Процесс решения был остановлен из за длительного выполнения. Решение может быть не оптимальным.");
+                            break;
+                        }
+                    case Status.Unknown:
+                        {
+                            MessageBox.Show("Процесс решения был остановлен из за длительного выполнения. Решение может быть не валидным.");
+                            break;
+                        }
+                    default:
+                        {
+                            MessageBox.Show("Решение не найдено.");
+                            return;
+                        }
+                }
+
                 ResultsViewModel.SetData(Result, ProjectsSet);
                 SolutionUpdated?.Invoke(this, null);
             }
@@ -127,9 +152,32 @@ namespace ProjectsScheduler.Desktop.ViewModel
             ProjectsSetViewModel.SetProjectSet(ProjectsSet);
         }
 
-        private bool CanExecuteAddTask(object? parameter)
+        private bool CanExecuteAddTaskCommand(object? parameter)
         {
             return (ProjectsSetViewModel.SelectedObject is ProjectViewModel);
+        }
+
+        private void RemoveTask(object? parameter)
+        {
+            var taskVM = (ProjectsSetViewModel.SelectedObject as TaskViewModel);
+            foreach(var project in ProjectsSet.ProjectList)
+            {
+                foreach(var task in project.Tasks.ToList())
+                {
+                    if (task.ID == taskVM.ProjectTask.ID)
+                    {
+                        var taskToRemove = task;
+                        project.Tasks.Remove(taskToRemove);
+                        ProjectsSetViewModel.SetProjectSet(ProjectsSet);
+                        return;
+                    }
+                }
+            }
+        }
+
+        private bool CanExecuteRemoveTaskCommand(object? parameter)
+        {
+            return (ProjectsSetViewModel.SelectedObject is TaskViewModel);
         }
 
         private void AddResource(object? parameter)
@@ -140,7 +188,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
                 newName = "Новый_" + newName;
             }
 
-            var newResource = new Resource() { Name = newName, MaxParallelTasks = 1 };
+            var newResource = new ProjectResource() { Name = newName, MaxParallelTasks = 1 };
             ProjectsSet.Resources.Add(newResource);
             ProjectsSetViewModel.SetProjectSet(ProjectsSet);
         }

@@ -1,78 +1,94 @@
 ﻿using Google.OrTools.Sat;
 using ProjectsScheduler.Core.InputData;
 using System.Threading.Tasks;
+using static Google.OrTools.ConstraintSolver.RoutingModel.ResourceGroup;
 
 namespace ProjectsScheduler.Core.OrToolsSolver
 {
-    class ModelProject
+    internal class ModelProject
     {
         public Project Project { get; set; }
         public List<ModelTask> ModelTasks { get; set; } = new List<ModelTask>();
         public IntVar Deadline { get; set; }
 
+        public ModelProject(Project project, CpModel model)
+        {
+            Project = project;
+            if (project.Deadline != null)
+                Deadline = model.NewConstant(project.Deadline.Value);
+        }
     }
 
-    class ModelTask
+    internal class ModelTask
     {
         public ProjectTask Task { get; set; }
         public IntVar Start { get; set; }
         public IntVar End { get; set; }
         public IntervalVar Interval { get; set; }
+
+        public ModelTask(ProjectTask task, CpModel model, int horizon)
+        {
+            Task = task;
+            Start = model.NewIntVar(0, horizon, task.ID);
+            End = model.NewIntVar(0, horizon, task.ID);
+            Interval = model.NewIntervalVar(Start, task.Duration, End, task.ID);
+        }
     }
 
-    class ModelResource
+    internal class ModelResource
     {
-        public Resource Resource { get; set; }
+        public ProjectResource Resource { get; set; }
         public List<ModelTask> Tasks { get; set; } = new List<ModelTask>();
+
+        public ModelResource(ProjectResource resource)
+        {
+            Resource = resource;
+        }
     }
 
     internal class ModelData
     {
-        // ----- Creates all intervals and integer variables -----
         public List<ModelProject> ModelProjects { get; set; } = new List<ModelProject>();
 
-        // это просто альтернативная группировка тасков по ресурсам
+        /// <summary>
+        /// это просто альтернативная группировка тасков по ресурсам
+        /// </summary>
         public List<ModelResource> ModelResources { get; set; } = new List<ModelResource>();
 
+        /// <summary>
+        /// Перемменная обозначает времени нужное для завершения всех проектов
+        /// </summary>
         public IntVar makespan;
 
         public ModelData(ProjectsSet projectSet, CpModel model)
         {
-            // Creates all individual interval variables.
             foreach (var project in projectSet.ProjectList)
             {
-                var modelProject = new ModelProject();
-                modelProject.Project = project;
-                if (project.Deadline != null)
-                    modelProject.Deadline = model.NewConstant(project.Deadline.Value);
+                // проект
+                var modelProject = new ModelProject(project, model);
                 ModelProjects.Add(modelProject);
                 foreach (var task in project.Tasks)
                 {
-                    var modelTask = new ModelTask();
-                    modelTask.Task = task;
-                    modelTask.Start = model.NewIntVar(0, projectSet.horizon, task.ID);
-                    modelTask.End = model.NewIntVar(0, projectSet.horizon, task.ID);
-                    modelTask.Interval = model.NewIntervalVar(modelTask.Start, task.Duration, modelTask.End, task.ID);
+                    // таск
+                    var modelTask = new ModelTask(task, model, projectSet.horizon);
                     modelProject.ModelTasks.Add(modelTask);
 
-
+                    // ресурс
                     var modelResource = ModelResources
                         .FirstOrDefault(modelResource => modelResource.Resource.Name == task.ResourceName);
                     if (modelResource == null)
                     {
                         var resource = projectSet.Resources.Single(resource => resource.Name == task.ResourceName);
-                        modelResource = new ModelResource();
-                        modelResource.Resource = resource;
+                        modelResource = new ModelResource(resource);
                         ModelResources.Add(modelResource);
                     }
 
-                    modelResource.Tasks.Add(modelTask);
+                    modelResource.Tasks.Add(modelTask); // для подсчета загруженности ресурсов
                 }
             }
 
 
-            // Objective: minimize the makespan (maximum end times of all tasks)
-            // of the problem.
+            // Objective: minimize the makespan (maximum end times of all tasks) of the problem.
             makespan = model.NewIntVar(0, projectSet.horizon, "makespan");
         }
     }

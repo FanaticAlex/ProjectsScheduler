@@ -12,13 +12,6 @@ namespace ProjectsScheduler
     {
         public void Show(ProjectsSet projectSet, Result result)
         {
-            if (!result.Success)
-            {
-                Console.WriteLine("No solution found!");
-                return;
-            }
-
-
             var resourceToColors = GetResourceToColor(projectSet.Resources);
             if (resourceToColors == null)
                 return;
@@ -72,7 +65,7 @@ namespace ProjectsScheduler
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        private static Dictionary<string, ConsoleColor> GetResourceToColor(List<Resource> resources)
+        private static Dictionary<string, ConsoleColor> GetResourceToColor(List<ProjectResource> resources)
         {
             var colors = new List<ConsoleColor>()
         {

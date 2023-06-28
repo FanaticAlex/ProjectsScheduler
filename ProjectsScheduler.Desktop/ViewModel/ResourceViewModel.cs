@@ -18,7 +18,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
         public Color ResourceColor { get; set; }
         public List<int> Load { get; set; }
 
-        public Resource Resource { get; set; }
+        public ProjectResource Resource { get; set; }
 
         public string Vacations => $"[{String.Join(",", Resource.Vacations)}]";
 
@@ -40,10 +40,10 @@ namespace ProjectsScheduler.Desktop.ViewModel
 
         public ResourceViewModel()
         {
-            Resource = new Resource();
+            Resource = new ProjectResource();
         }
 
-        public ResourceViewModel(Resource resource, Result result, List<ProjectTask> tasks, List<Resource> resources)
+        public ResourceViewModel(ProjectResource resource, Result result, List<ProjectTask> tasks, List<ProjectResource> resources)
         {
             Resource = resource;
             var resourceTasks = tasks?.Where(t => t.ResourceName == resource.Name).ToList();

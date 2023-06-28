@@ -53,6 +53,7 @@
                 <Button Command="{Binding SaveCommand}">Сохранить пример</Button>
                 <Button Command="{Binding AddProjectCommand}">Добавить проект</Button>
                 <Button Command="{Binding AddTaskCommand}">Добавить таск</Button>
+                <Button Command="{Binding RemoveTaskCommand}">Удалить таск</Button>
                 <Button Command="{Binding AddResourceCommand}">Добавить ресурс</Button>
             </ToolBar>
         </ToolBarTray>

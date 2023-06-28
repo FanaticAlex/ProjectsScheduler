@@ -14,7 +14,7 @@ namespace ProjectsScheduler.Tests
             var solver = new ProjectSchedulerProblemSolver();
             var result = solver.Solve(projectSet);
 
-            Assert.True(result.Success);
+            Assert.True(result.Status == Core.Status.Optimal);
             Assert.Equal(12, result.OverallTime);
         }
 
@@ -26,7 +26,7 @@ namespace ProjectsScheduler.Tests
             var solver = new ProjectSchedulerProblemSolver();
             var result = solver.Solve(projectSet);
 
-            Assert.True(result.Success);
+            Assert.True(result.Status == Core.Status.Optimal);
             Assert.Equal(6, result.OverallTime);
         }
 
@@ -38,7 +38,7 @@ namespace ProjectsScheduler.Tests
             var solver = new ProjectSchedulerProblemSolver();
             var result = solver.Solve(projectSet);
 
-            Assert.True(result.Success);
+            Assert.True(result.Status == Core.Status.Optimal);
             Assert.Equal(15, result.OverallTime);
         }
 
@@ -54,7 +54,7 @@ namespace ProjectsScheduler.Tests
             var solver = new ProjectSchedulerProblemSolver();
             var result = solver.Solve(projectSet);
 
-            Assert.True(result.Success);
+            Assert.True(result.Status == Core.Status.Optimal);
             Assert.Equal(1, result.OverallTime);
         }
 
@@ -72,7 +72,7 @@ namespace ProjectsScheduler.Tests
             var project = projectSet.ProjectList.Single(p => p.Name == "Project 4");
             var task = project.Tasks.First();
 
-            Assert.True(result.Success);
+            Assert.True(result.Status == Core.Status.Optimal);
             Assert.Equal(12, result.OverallTime);
             Assert.True(result.TaskIdToTaskStartTime[task.ID] <= project.Deadline);
         }
@@ -85,7 +85,7 @@ namespace ProjectsScheduler.Tests
             var solver = new ProjectSchedulerProblemSolver();
             var result = solver.Solve(projectSet);
 
-            Assert.True(result.Success);
+            Assert.True(result.Status == Core.Status.Optimal);
             Assert.Equal(5, result.OverallTime);
         }
 
@@ -97,7 +97,7 @@ namespace ProjectsScheduler.Tests
             var solver = new ProjectSchedulerProblemSolver();
             var result = solver.Solve(projectSet);
 
-            Assert.True(result.Success);
+            Assert.True(result.Status == Core.Status.Optimal);
             Assert.Equal(6, result.OverallTime);
         }
 
@@ -109,7 +109,7 @@ namespace ProjectsScheduler.Tests
             var solver = new ProjectSchedulerProblemSolver();
             var result = solver.Solve(projectSet);
 
-            Assert.True(result.Success);
+            Assert.True(result.Status == Core.Status.Optimal);
             Assert.Equal(6, result.OverallTime);
         }
 
@@ -121,7 +121,7 @@ namespace ProjectsScheduler.Tests
             var solver = new ProjectSchedulerProblemSolver();
             var result = solver.Solve(projectSet);
 
-            Assert.True(result.Success);
+            Assert.True(result.Status == Core.Status.Optimal);
             Assert.Equal(15, result.OverallTime);
         }
 
@@ -133,7 +133,7 @@ namespace ProjectsScheduler.Tests
             var solver = new ProjectSchedulerProblemSolver();
             var result = solver.Solve(projectSet);
 
-            Assert.True(result.Success);
+            Assert.True(result.Status == Core.Status.Optimal);
             Assert.Equal(6, result.OverallTime);
         }
     }

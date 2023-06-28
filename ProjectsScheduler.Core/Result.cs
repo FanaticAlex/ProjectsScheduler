@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace ProjectsScheduler.Core
 {
+    public enum Status
+    {
+        Optimal,
+        Stopped,
+        Unknown
+    }
+
     /// <summary>
     /// Решение задачи расписаний.
     /// </summary>
     public class Result
     {
-        public bool Success { get; set; }
+        public Status Status { get; set; }
 
         /// <summary>
         /// Минимальное время необходмое для завершения всех задач всех проектов.
