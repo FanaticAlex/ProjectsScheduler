@@ -3,9 +3,9 @@
     public class ProjectResource
     {
         public string Name { get; set; }
-        public int MaxParallelTasks
+        public int? MaxParallelTasks
         {
-            get { return 0; }
+            get { return null; }
             set
             {
                 if (SubResources.Count == 0)
