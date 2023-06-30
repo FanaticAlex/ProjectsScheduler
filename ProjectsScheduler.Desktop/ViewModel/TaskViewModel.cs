@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace ProjectsScheduler.Desktop.ViewModel
 {
-    internal class TaskViewModel : BaseVewModel, INode
+    internal class TaskViewModel : BaseVewModel
     {
         public string Name
         {

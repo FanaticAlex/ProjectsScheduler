@@ -2,15 +2,30 @@
   "Resources": [
     {
       "Name": "A",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "A_1",
+          "SubResourceId": 0
+        }
+      ]
     },
     {
       "Name": "B",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "B_1",
+          "SubResourceId": 0
+        }
+      ]
     },
     {
       "Name": "C",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "C_1",
+          "SubResourceId": 0
+        }
+      ]
     }
   ],
   "ProjectList": [

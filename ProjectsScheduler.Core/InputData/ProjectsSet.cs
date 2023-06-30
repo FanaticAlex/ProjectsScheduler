@@ -10,7 +10,7 @@ namespace ProjectsScheduler.Core.InputData
 
         /*Search time limit in milliseconds. if it's equal to 0,
         then no time limit will be used.*/
-        public int timeLimitInSeconds = 3;
+        public int timeLimitInSeconds = 15;
 
         public List<Project> ProjectList { get; set; }
         public List<ProjectResource> Resources { get; set; }

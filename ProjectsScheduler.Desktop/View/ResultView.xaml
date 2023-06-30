@@ -29,9 +29,9 @@
             <Grid Name="HeaderTasks" Grid.Row="0" Grid.Column="0"/>
             <Grid Name="TimeAxis" Grid.Row="0" Grid.Column="1"/>
             <Grid Name="TasksTimelineLeft" Grid.Row="1" Grid.Column="0"/>
-            <Grid Name="TasksTimeline" ShowGridLines="True"  Grid.Row="1" Grid.Column="1"/>
+            <Grid Name="TasksTimeline" Grid.Row="1" Grid.Column="1" ShowGridLines="True" />
             <Grid Name="ResourceTimelineLeft" Grid.Row="3" Grid.Column="0"/>
-            <Grid Name="ResourceTimeline" MinHeight="100" ShowGridLines="True" Grid.Row="3" Grid.Column="1" />
+            <Grid Name="ResourceTimeline" Grid.Row="3" Grid.Column="1" ShowGridLines="True"/>
         </Grid>
     </ScrollViewer>
 

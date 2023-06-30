@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace ProjectsScheduler.Core.OrToolsSolver
 {
@@ -24,11 +22,13 @@ namespace ProjectsScheduler.Core.OrToolsSolver
 
             // Create the solver.
             CpSolver solver = new CpSolver();
-            // Set the time limit.
+            
             if (projectSet.timeLimitInSeconds > 0)
             {
+                // Set the time limit.
                 solver.StringParameters = "max_time_in_seconds:" + projectSet.timeLimitInSeconds;
             }
+
             // Solve the problem.
             CpSolverStatus status = solver.Solve(model);
 
@@ -36,55 +36,45 @@ namespace ProjectsScheduler.Core.OrToolsSolver
             {
                 case CpSolverStatus.Optimal:
                     {
-                        var result = new Result();
+                        var result = GetResult(stopwatch, modelData, solver);
                         result.Status = Status.Optimal;
-                        var allModelTasks = modelData.ModelProjects.SelectMany(p => p.ModelTasks);
-                        foreach (var modelTask in allModelTasks)
-                        {
-                            result.TaskIdToTaskStartTime.Add(modelTask.Task.ID, unchecked((int)solver.Value(modelTask.Start)));
-                        }
-
-                        result.OverallTime = unchecked((int)solver.ObjectiveValue);
-                        result.TimeSpent = stopwatch.Elapsed;
                         return result;
                     }
                 case CpSolverStatus.Infeasible: throw new Exception("При данных условиях задача не решаема.");
                 case CpSolverStatus.Feasible:
                     {
-                        var result = new Result();
+                        var result = GetResult(stopwatch, modelData, solver);
                         result.Status = Status.Stopped;
-                        var allModelTasks = modelData.ModelProjects.SelectMany(p => p.ModelTasks);
-                        foreach (var modelTask in allModelTasks)
-                        {
-                            result.TaskIdToTaskStartTime.Add(modelTask.Task.ID, unchecked((int)solver.Value(modelTask.Start)));
-                        }
-
-                        result.OverallTime = unchecked((int)solver.ObjectiveValue);
-                        result.TimeSpent = stopwatch.Elapsed;
                         return result;
-
-
-                        //throw new Exception("Процесс решения был остановлен.");
                     }
                 case CpSolverStatus.ModelInvalid: throw new Exception("Заданные условия некорректны.");
                 case CpSolverStatus.Unknown:
                     {
-                        var result = new Result();
+                        var result = GetResult(stopwatch, modelData, solver);
                         result.Status = Status.Unknown;
-                        var allModelTasks = modelData.ModelProjects.SelectMany(p => p.ModelTasks);
-                        foreach (var modelTask in allModelTasks)
-                        {
-                            result.TaskIdToTaskStartTime.Add(modelTask.Task.ID, unchecked((int)solver.Value(modelTask.Start)));
-                        }
-
-                        result.OverallTime = unchecked((int)solver.ObjectiveValue);
-                        result.TimeSpent = stopwatch.Elapsed;
                         return result;
-
-                        //throw new Exception("Unknown error.");
                     }
                 default: throw new Exception("Статус решения не определен");
             }
+        }
+
+        private static Result GetResult(Stopwatch stopwatch, ModelData modelData, CpSolver solver)
+        {
+            var result = new Result();
+            var allModelTasks = modelData.ModelProjects.SelectMany(p => p.ModelTasks);
+            foreach (var modelTask in allModelTasks)
+            {
+                result.TaskIdToTaskStartTime.Add(modelTask.Task.ID, unchecked((int)solver.Value(modelTask.Start)));
+            }
+
+            foreach (var modelTask in allModelTasks)
+            {
+                result.TaskIdToSubtaskNumber.Add(modelTask.Task.ID, unchecked((int)solver.Value(modelTask.SubresourceNumber)));
+            }
+
+            result.OverallTime = unchecked((int)solver.ObjectiveValue);
+            result.TimeSpent = stopwatch.Elapsed;
+            return result;
         }
 
         private void InitModel(ModelData modelData, CpModel model)
@@ -110,74 +100,67 @@ namespace ProjectsScheduler.Core.OrToolsSolver
             model.Minimize(modelData.makespan);
         }
 
-        private static void AddVacationsCondition(CpModel model, ModelResource modelResource)
+        /// <summary>
+        /// Ограничения на отпуска.
+        /// Интервалы отпусков субресурсов не должны пересекаться с задачами
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="modelResource"></param>
+        private void AddVacationsCondition(CpModel model, ModelResource modelResource)
         {
-            // ограничения на отпуска
-            // один слот ресурса убираем 
-            // ограничиваем пересечение m интервалов в даты отпусков
-            var tasks = modelResource.Tasks;
-            foreach (var t0 in modelResource.Resource.Vacations)
+            foreach(var subResource in modelResource.Resource.SubResources)
             {
-                // t0 - отпуск
-
-                //          t0
-                // s1______e1|
-                // s2______e2|
-
-                // t0        
-                // |s1_______e1
-                // |s2_______e2
-
-                // s1_____t0__e1
-                //    s2__t0______e2
-
-                // s2(maxs)   e1(mine)
-                // t0 > min(e) || t0 < max(s)
-                var combinations1 = GetCombinations(tasks.Count, modelResource.Resource.MaxParallelTasks);
-                foreach (var combination in combinations1)
+                foreach(var vacation in subResource.Vacations)
                 {
-                    var name = string.Join("_", combination);
-                    var maxs = model.NewIntVar(0, 10000, "maxs_" + name);
-                    var mine = model.NewIntVar(0, 10000, "mine_" + name);
-                    IntVar[] ss = combination.Select(i => tasks[i].Start).ToArray();
-                    IntVar[] ee = combination.Select(i => tasks[i].End).ToArray();
-                    model.AddMaxEquality(maxs, ss);
-                    model.AddMinEquality(mine, ee);
+                    var start = model.NewConstant(vacation - 1);
+                    var end = model.NewConstant(vacation);
 
-                    var con1 = model.NewBoolVar("con1_" + name);
-                    model.Add(t0 >= mine).OnlyEnforceIf(con1);
-                    model.Add(t0 < mine).OnlyEnforceIf(con1.Not());
+                    foreach (var task in modelResource.Tasks)
+                    {
+                        var isThisSubresource = model.NewBoolVar(subResource.Name + "bool_vacation_" + vacation);
+                        model.Add(task.SubresourceNumber == subResource.SubResourceId).OnlyEnforceIf(isThisSubresource);
+                        model.Add(task.SubresourceNumber != subResource.SubResourceId).OnlyEnforceIf(isThisSubresource.Not());
 
-                    var con2 = model.NewBoolVar("con2_" + name);
-                    model.Add(t0 + 1 <= maxs).OnlyEnforceIf(con2);
-                    model.Add(t0 + 1 > maxs).OnlyEnforceIf(con2.Not());
-
-                    model.AddBoolOr(new List<ILiteral>() { con1, con2 });
+                        AddNotOverlapTasksCondition(start, end, task.Start, task.End, model, isThisSubresource);
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// многозадачные ресурсы могут выполнять m задач одновременно
-        /// тогда ограничение будет: любые m+1 интервалов тасков не могут пересекаться
+        /// Ограничение на последовательное выполнение задач.
+        /// - задачи на одном простом ресурсе не прересекаются.
+        /// - специальный случай: если у ресурса есть несколько субресурсов, тогда задачи на одном субресурсе не должны пересекаться
         /// </summary>
         /// <param name="model"></param>
         /// <param name="modelResource"></param>
-        private static void AddMaxParalellTaskCondition(CpModel model, ModelResource modelResource)
+        private void AddMaxParalellTaskCondition(CpModel model, ModelResource modelResource)
         {
-            var tasks = modelResource.Tasks;
-            var combinations = GetCombinations(tasks.Count, modelResource.Resource.MaxParallelTasks + 1);
-            foreach (var combination in combinations)
+            int nTasks = modelResource.Tasks.Count();
+            for (int i = 0; i < nTasks - 1; i++)
             {
-                var name = string.Join("_", combination);
-                var maxs = model.NewIntVar(0, 10000, "maxs" + name);
-                var mine = model.NewIntVar(0, 10000, "mine" + name);
-                IntVar[] ss = combination.Select(i => tasks[i].Start).ToArray();
-                IntVar[] ee = combination.Select(i => tasks[i].End).ToArray();
-                model.AddMaxEquality(maxs, ss);
-                model.AddMinEquality(mine, ee);
-                model.Add(maxs >= mine);
+                var i_task = modelResource.Tasks[i];
+                for (int j = i + 1; j < nTasks; j++)
+                {
+                    var j_task = modelResource.Tasks[j];
+                    var sameTechnician = model.NewBoolVar($"Job {i_task.Task.ID} and {j_task.Task.ID} have the same technician.");
+                    model.Add(i_task.SubresourceNumber == j_task.SubresourceNumber).OnlyEnforceIf(sameTechnician);
+                    model.Add(i_task.SubresourceNumber != j_task.SubresourceNumber).OnlyEnforceIf(sameTechnician.Not());
+                    AddNotOverlapTasksCondition(i_task.Start, i_task.End, j_task.Start, j_task.End, model, sameTechnician);
+                }
             }
+        }
+
+        private void AddNotOverlapTasksCondition(IntVar i_start, IntVar i_end, IntVar j_start, IntVar j_end, CpModel model, BoolVar condition)
+        {
+            var name = string.Join("_", Guid.NewGuid());
+            var maxs = model.NewIntVar(0, 10000, "maxs" + name);
+            var mine = model.NewIntVar(0, 10000, "mine" + name);
+            IntVar[] ss = new IntVar[] { i_start, j_start };
+            IntVar[] ee = new IntVar[] { i_end, j_end };
+            model.AddMaxEquality(maxs, ss);
+            model.AddMinEquality(mine, ee);
+            model.Add(maxs >= mine).OnlyEnforceIf(condition);
         }
 
         /// <summary>
@@ -212,27 +195,6 @@ namespace ProjectsScheduler.Core.OrToolsSolver
                         model.Add(firstTask.Start <= secondTask.Start); // для случая тасков с одинаковыми ресурсами, они могут выполняться одновременно
                     else
                         model.Add(firstTask.End <= secondTask.Start);
-                }
-            }
-        }
-
-        private static IEnumerable<int[]> GetCombinations(int tasksCount, int maxParallel)
-        {
-            int[] result = new int[maxParallel];
-            Stack<int> stack = new Stack<int>(maxParallel);
-            stack.Push(0);
-            while (stack.Count > 0)
-            {
-                int index = stack.Count - 1;
-                int value = stack.Pop();
-                while (value < tasksCount)
-                {
-                    result[index++] = value++;
-                    stack.Push(value);
-                    if (index != maxParallel) continue;
-                    yield return (int[])result.Clone(); // thanks to @xanatos
-                                                        //yield return result;
-                    break;
                 }
             }
         }

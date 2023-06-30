@@ -25,5 +25,12 @@ namespace ProjectsScheduler.Desktop.ViewModel
             Projects = inputData.ProjectList.Select(p => new ProjectViewModel(p, result, resourcesVM)).ToList();
             Resources = inputData.Resources.Select(r => new ResourceViewModel(r, result, tasks, inputData.Resources)).ToList();
         }
+
+        public void Clear()
+        {
+            Projects = new List<ProjectViewModel>();
+            Resources = new List<ResourceViewModel>();
+            TimeMax = 0;
+        }
     }
 }

@@ -2,39 +2,84 @@
   "Resources": [
     {
       "Name": "A(BE)",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "A(BE)_1",
+          "SubResourceId": 0
+        }
+      ]
     },
     {
       "Name": "A(FE)",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "A(FE)_1",
+          "SubResourceId": 0
+        }
+      ]
     },
     {
       "Name": "A(QA)",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "A(QA)_1",
+          "SubResourceId": 0
+        }
+      ]
     },
     {
       "Name": "B(BE)",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "B(BE)_1",
+          "SubResourceId": 0
+        }
+      ]
     },
     {
       "Name": "B(FE)",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "B(FE)_1",
+          "SubResourceId": 0
+        }
+      ]
     },
     {
       "Name": "B(QA)",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "B(QA)_1",
+          "SubResourceId": 0
+        }
+      ]
     },
     {
       "Name": "C(BE)",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "C(BE)_1",
+          "SubResourceId": 0
+        }
+      ]
     },
     {
       "Name": "C(FE)",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "C(FE)_1",
+          "SubResourceId": 0
+        }
+      ]
     },
     {
       "Name": "C(QA)",
-      "MaxParallelTasks": 1
+      "SubResources": [
+        {
+          "Name": "C(QA)_1",
+          "SubResourceId": 0
+        }
+      ]
     }
   ],
   "ProjectList": [

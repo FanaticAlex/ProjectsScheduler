@@ -8,7 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\DeadlineInage.png" />
+    <None Remove="Resources\DeadlineImage.png" />
+    <None Remove="Resources\VacationImage.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +17,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\DeadlineInage.png" />
+    <Resource Include="Resources\DeadlineImage.png" />
+    <Resource Include="Resources\VacationImage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\SubResourcePropertiesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

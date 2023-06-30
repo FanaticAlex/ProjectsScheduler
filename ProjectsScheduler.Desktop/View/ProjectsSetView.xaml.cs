@@ -32,40 +32,28 @@ namespace ProjectsScheduler.Desktop.View
             Properties.Children.Clear();
             if (e.NewValue is Node)
             {
-                if (((Node)e.NewValue).Original is ProjectViewModel)
-                {
-                    var view = new ProjectProperiesView();
-                    var projectVM = ((Node)e.NewValue).Original;
-                    view.DataContext = projectVM;
-                    Properties.Children.Add(view);
+                var nodeOriginal = ((Node)e.NewValue).Original;
+                var vm = (ProjectsSetViewModel)DataContext;
+                UserControl properiesView = null;
 
-                    var vm = (ProjectsSetViewModel)DataContext;
-                    vm.SelectedObject = projectVM;
-                }
-            }
-            else
-            {
-                if (e.NewValue is TaskViewModel)
-                {
-                    var view = new TaskPropertiesView();
-                    var taskVM = e.NewValue;
-                    view.DataContext = taskVM;
-                    Properties.Children.Add(view);
+                if (nodeOriginal is ProjectViewModel)
+                    properiesView = new ProjectProperiesView();
 
-                    var vm = (ProjectsSetViewModel)DataContext;
-                    vm.SelectedObject = taskVM;
-                }
+                if (nodeOriginal is TaskViewModel)
+                    properiesView = new TaskPropertiesView();
 
-                if (e.NewValue is ResourceViewModel)
-                {
-                    var view = new ResourcePropertiesView();
-                    var resourceVM = e.NewValue;
-                    view.DataContext = resourceVM;
-                    Properties.Children.Add(view);
+                if (nodeOriginal is ResourceViewModel)
+                    properiesView = new ResourcePropertiesView();
 
-                    var vm = (ProjectsSetViewModel)DataContext;
-                    vm.SelectedObject = resourceVM;
-                }
+                if (nodeOriginal is SubResourceViewModel)
+                    properiesView = new SubResourcePropertiesView();
+
+                if (properiesView == null)
+                    return;
+
+                properiesView.DataContext = nodeOriginal;
+                Properties.Children.Add(properiesView);
+                vm.SelectedObject = nodeOriginal;
             }
         }
     }

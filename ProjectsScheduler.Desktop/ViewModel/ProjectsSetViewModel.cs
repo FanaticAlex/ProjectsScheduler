@@ -4,22 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using static Google.OrTools.ConstraintSolver.RoutingModel.ResourceGroup;
 
 namespace ProjectsScheduler.Desktop.ViewModel
 {
-    internal interface INode
-    {
-        public string Name { get; }
-    }
-
-    internal class Node : INode
+    internal class Node
     {
         public string Name { get; set; }
-        public ObservableCollection<INode> Children { get; set; } = new ObservableCollection<INode>();
+        public ObservableCollection<Node> Children { get; set; } = new ObservableCollection<Node>();
         public object Original { get; set; }
     }
 
@@ -31,8 +22,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
         public void SetProjectSet(ProjectsSet projectsSet)
         {
             Nodes.Clear();
-            var resourcesVM = projectsSet.Resources
-                .Select(r => new ResourceViewModel(r, null, null, projectsSet.Resources)).ToList();
+            var resourcesVM = projectsSet.Resources.Select(r => new ResourceViewModel(r, null, null, projectsSet.Resources)).ToList();
             foreach (var project in projectsSet.ProjectList)
             {
                 var projectVM = new ProjectViewModel(project, null, resourcesVM);
@@ -40,17 +30,23 @@ namespace ProjectsScheduler.Desktop.ViewModel
                 Nodes.Add(projectNode);
                 foreach (var task in projectVM.Tasks)
                 {
-                    projectNode.Children.Add(task);
+                    var taskNode = new Node() { Name = task.Name, Original = task };
+                    projectNode.Children.Add(taskNode);
                 }
             }
 
-            var resourceNode = new Node() { Name = "Ресурсы" };
+            var resourceRootNode = new Node() { Name = "Ресурсы" };
+            Nodes.Add(resourceRootNode);
             foreach (var resourceVM in resourcesVM)
             {
-                resourceNode.Children.Add(resourceVM);
+                var resourceNode = new Node() { Name = resourceVM.Name, Original = resourceVM };
+                resourceRootNode.Children.Add(resourceNode);
+                foreach(var subResource in  resourceVM.SubResources)
+                {
+                    var subResourceNode = new Node() { Name =  subResource.Name, Original = subResource };
+                    resourceNode.Children.Add(subResourceNode);
+                }
             }
-
-            Nodes.Add(resourceNode);
         }
     }
 }

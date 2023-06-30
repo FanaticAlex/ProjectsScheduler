@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace ProjectsScheduler.Desktop.ViewModel
 {
-    internal class ProjectViewModel : INode
+    internal class ProjectViewModel
     {
         public string Name
         {

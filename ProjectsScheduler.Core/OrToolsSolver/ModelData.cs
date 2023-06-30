@@ -26,12 +26,18 @@ namespace ProjectsScheduler.Core.OrToolsSolver
         public IntVar End { get; set; }
         public IntervalVar Interval { get; set; }
 
-        public ModelTask(ProjectTask task, CpModel model, int horizon)
+        public IntVar SubresourceNumber { get; set; }
+
+        public ModelTask(ProjectTask task, CpModel model, int horizon, int subResourceCount)
         {
+            if (subResourceCount == 0)
+                throw new Exception("У ресурса нет субресурсов");
+
             Task = task;
-            Start = model.NewIntVar(0, horizon, task.ID);
-            End = model.NewIntVar(0, horizon, task.ID);
-            Interval = model.NewIntervalVar(Start, task.Duration, End, task.ID);
+            Start = model.NewIntVar(0, horizon, "s" + task.ID);
+            End = model.NewIntVar(0, horizon, "e" + task.ID);
+            Interval = model.NewIntervalVar(Start, task.Duration, End, "i" + task.ID);
+            SubresourceNumber = model.NewIntVar(0, subResourceCount - 1, "sub" + task.ID);
         }
     }
 
@@ -69,10 +75,6 @@ namespace ProjectsScheduler.Core.OrToolsSolver
                 ModelProjects.Add(modelProject);
                 foreach (var task in project.Tasks)
                 {
-                    // таск
-                    var modelTask = new ModelTask(task, model, projectSet.horizon);
-                    modelProject.ModelTasks.Add(modelTask);
-
                     // ресурс
                     var modelResource = ModelResources
                         .FirstOrDefault(modelResource => modelResource.Resource.Name == task.ResourceName);
@@ -82,6 +84,12 @@ namespace ProjectsScheduler.Core.OrToolsSolver
                         modelResource = new ModelResource(resource);
                         ModelResources.Add(modelResource);
                     }
+
+                    // таск
+                    var modelTask = new ModelTask(task, model, projectSet.horizon, modelResource.Resource.SubResources.Count());
+                    modelProject.ModelTasks.Add(modelTask);
+
+                    
 
                     modelResource.Tasks.Add(modelTask); // для подсчета загруженности ресурсов
                 }

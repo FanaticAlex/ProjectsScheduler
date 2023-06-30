@@ -2,8 +2,12 @@
   "Resources": [
     {
       "Name": "QA",
-      "MaxParallelTasks": 1,
-      "Vacations": [ 3, 4, 5 ]
+      "SubResources": [
+        {
+          "Name": "QA_1",
+          "Vacations": [ 3, 4, 5 ]
+        }
+      ]
     }
   ],
   "ProjectList": [

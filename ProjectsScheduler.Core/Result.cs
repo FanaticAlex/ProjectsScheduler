@@ -31,6 +31,11 @@ namespace ProjectsScheduler.Core
         public Dictionary<string, int> TaskIdToTaskStartTime { get; set; } = new Dictionary<string, int>();
 
         /// <summary>
+        /// Номер сабтаска определенный для каждой задачи
+        /// </summary>
+        public Dictionary<string, int> TaskIdToSubtaskNumber { get; set; } = new Dictionary<string, int>();
+
+        /// <summary>
         /// Время потраченное на решение задачи.
         /// </summary>
         public TimeSpan TimeSpent { get; set; }

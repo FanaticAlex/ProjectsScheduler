@@ -36,7 +36,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
+    <Grid IsEnabled="{Binding IsActionsAvailable}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -55,11 +55,17 @@
                 <Button Command="{Binding AddTaskCommand}">Добавить таск</Button>
                 <Button Command="{Binding RemoveTaskCommand}">Удалить таск</Button>
                 <Button Command="{Binding AddResourceCommand}">Добавить ресурс</Button>
+                <Button Command="{Binding RemoveResourceCommand}">Удалить ресурс</Button>
+                <Button Command="{Binding AddSubResourceCommand}">Добавить субресурс</Button>
+                <Button Command="{Binding OpenSettingsCommand}">Настройки</Button>
             </ToolBar>
         </ToolBarTray>
         
         <view:ProjectsSetView Margin="10" Grid.Row="1" Grid.Column="0" x:Name="ProjectsSetView"/>
+
         <view:ResultView Margin="10" Grid.Row="1" Grid.Column="1" x:Name="ResultView" BorderBrush="Black" BorderThickness="1"/>
 
+        <ProgressBar Visibility="{Binding ProgressVisibility}" Grid.Row="1" Grid.Column="1" Width="100" Height="30" IsIndeterminate="True" HorizontalAlignment="Center" VerticalAlignment="Center"  ></ProgressBar>
+        
     </Grid>
 </Window>

@@ -108,40 +108,55 @@ namespace ProjectsScheduler.Desktop.View
 
 
             // заполнить таблицу ресурсов
-            var resourcesCount = vm.Resources.Count;
-            InitGrid(ResourceTimelineLeft, resourcesCount, 2, GridLength.Auto, GridLength.Auto);
-            InitGrid(ResourceTimeline, resourcesCount, timeMax, new GridLength(CellWidth), new GridLength(CellHeight));
+            var resourcesCount = vm.Resources.SelectMany(r => r.SubResources).Count();
+            InitGrid(ResourceTimelineLeft, resourcesCount, 2, GridLength.Auto, GridLength.Auto); // названия строк
+            InitGrid(ResourceTimeline, resourcesCount, timeMax, new GridLength(CellWidth), new GridLength(CellHeight)); // значения
 
-            // header
-            var headerControl = GetProjectLegendControl("Загруженность", vm.Resources.Count);
-            ResourceTimelineLeft.Children.Add(headerControl);
-            Grid.SetRow(headerControl, 0);
-            Grid.SetColumn(headerControl, 0);
-            Grid.SetRowSpan(headerControl, vm.Resources.Count);
-
+            var nextResourceRow = 0;
             for (int i = 0; i < vm.Resources.Count; i++)
             {
+                // названия ресурсов
                 var resource = vm.Resources[i];
+                var headerControl = GetProjectLegendControl(resource.Name, resource.SubResources.Count);
+                ResourceTimelineLeft.Children.Add(headerControl);
+                Grid.SetRow(headerControl, nextResourceRow);
+                Grid.SetColumn(headerControl, 0);
+                Grid.SetRowSpan(headerControl, resource.SubResources.Count);
 
-                var resourceControl = GetDefaultLegendControl(resource.Name);
-                ResourceTimelineLeft.Children.Add(resourceControl);
-                Grid.SetRow(resourceControl, i);
-                Grid.SetColumn(resourceControl, 1);
-
-
-                // заполнить загруженность/мощьность
-                for (int j = 0; j < timeMax; j++)
+                for (int j = 0; j < resource.Resource.SubResources.Count; j++)
                 {
-                    var resourcePointControl = GetDefaultCellControl();
-                    resourcePointControl.Content = resource.GetMaxParallelTask(j);
+                    var subResource = resource.SubResources[j];
 
-                    if (resource.Load.Contains(j))
-                        resourcePointControl.Background = new SolidColorBrush(resource.ResourceColor);
+                    // Название субресурса
+                    var subResourceNameControl = GetDefaultLegendControl(subResource.Name);
+                    ResourceTimelineLeft.Children.Add(subResourceNameControl);
+                    Grid.SetRow(subResourceNameControl, nextResourceRow + j);
+                    Grid.SetColumn(subResourceNameControl, 1);
 
-                    ResourceTimeline.Children.Add(resourcePointControl);
-                    Grid.SetRow(resourcePointControl, i);
-                    Grid.SetColumn(resourcePointControl, j);
+                    // отпуска
+                    for (int v = 0; v < subResource.SubResource.Vacations.Count(); v++)
+                    {
+                        var vacation = subResource.SubResource.Vacations[v];
+                        var vacationControl = GetVacationControl();
+                        ResourceTimeline.Children.Add(vacationControl);
+                        Grid.SetRow(vacationControl, nextResourceRow + j);
+                        Grid.SetColumn(vacationControl, vacation - 1);
+                    }
+
+                    // загруженность ресурса
+                    for (int k = 0; k < timeMax; k++)
+                    {
+                        var resourcePointControl = GetDefaultCellControl();
+                        if (subResource.Load.Contains(k))
+                            resourcePointControl.Background = new SolidColorBrush(resource.ResourceColor);
+
+                        ResourceTimeline.Children.Add(resourcePointControl);
+                        Grid.SetRow(resourcePointControl, nextResourceRow + j);
+                        Grid.SetColumn(resourcePointControl, k);
+                    }
                 }
+
+                nextResourceRow += resource.SubResources.Count;
             }
         }
 
@@ -184,7 +199,16 @@ namespace ProjectsScheduler.Desktop.View
         private Image GetDeadlineControl()
         {
             var control = new Image();
-            control.Source = new BitmapImage(new Uri("/Resources/DeadlineInage.png", UriKind.Relative));
+            control.Source = new BitmapImage(new Uri("/Resources/DeadlineImage.png", UriKind.Relative));
+            control.Width = CellWidth;
+            control.Height = CellHeight;
+            return control;
+        }
+
+        private Image GetVacationControl()
+        {
+            var control = new Image();
+            control.Source = new BitmapImage(new Uri("/Resources/VacationImage.png", UriKind.Relative));
             control.Width = CellWidth;
             control.Height = CellHeight;
             return control;

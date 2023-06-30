@@ -8,19 +8,19 @@ using System.Windows.Media;
 
 namespace ProjectsScheduler.Desktop.ViewModel
 {
-    internal class ResourceViewModel : INode
+    internal class ResourceViewModel
     {
         public string Name
         {
             get { return Resource.Name; }
             set { Resource.Name = value; }
         }
+
         public Color ResourceColor { get; set; }
-        public List<int> Load { get; set; }
 
         public ProjectResource Resource { get; set; }
 
-        public string Vacations => $"[{String.Join(",", Resource.Vacations)}]";
+        public List<SubResourceViewModel> SubResources { get; set; } = new List<SubResourceViewModel>();
 
         public static List<Color> DefaultColors = new List<Color>()
         {
@@ -30,7 +30,7 @@ namespace ProjectsScheduler.Desktop.ViewModel
             Color.FromRgb(167, 127, 170),
             Color.FromRgb(224, 183, 99),
             Color.FromRgb(161, 127, 255),
-            Color.FromRgb(128, 128, 128),
+            Color.FromRgb(0, 158, 18),
             Color.FromRgb(168, 117, 84),
             Color.FromRgb(226, 90, 0),
             Color.FromRgb(255, 0, 100),
@@ -46,41 +46,15 @@ namespace ProjectsScheduler.Desktop.ViewModel
         public ResourceViewModel(ProjectResource resource, Result result, List<ProjectTask> tasks, List<ProjectResource> resources)
         {
             Resource = resource;
-            var resourceTasks = tasks?.Where(t => t.ResourceName == resource.Name).ToList();
             ResourceColor = GetNextColor(resources.IndexOf(resource));
-            Load = GetResourceLoad(resourceTasks, result);
-        }
-
-        public int GetMaxParallelTask(int time)
-        {
-            var isVacation = Resource.Vacations.Contains(time) ? 1 : 0;
-            return Resource.MaxParallelTasks - isVacation;
+            var resourceTasks = tasks?.Where(t => t.ResourceName == Name).ToList();
+            SubResources = resource.SubResources.Select(sr => new SubResourceViewModel(sr, resourceTasks, result)).ToList();
         }
 
         private Color GetNextColor(int number)
         {
             var color = DefaultColors[number];
             return color;
-        }
-
-        private static List<int> GetResourceLoad(List<ProjectTask> tasks, Result result)
-        {
-            if (tasks == null)
-                return null;
-
-            if (result == null)
-                return null;
-
-            var ret = new List<int>();
-            foreach (var task in tasks)
-            {
-                for (int i = 0; i < task.Duration; i++)
-                {
-                    ret.Add(result.TaskIdToTaskStartTime[task.ID] + i);
-                }
-            }
-
-            return ret;
         }
     }
 }

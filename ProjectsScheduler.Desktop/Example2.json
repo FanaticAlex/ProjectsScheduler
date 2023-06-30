@@ -2,27 +2,78 @@
   "Resources": [
     {
       "Name": "Avalara(BE)",
-      "MaxParallelTasks": 2,
-      "Vacations": [ 1, 2 ]
+      "SubResources": [
+        {
+          "Name": "Ksenia Blinova",
+          "Vacations": [ 2 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Sergey Tarasov",
+          "Vacations": [ 3 ],
+          "SubResourceId": 1
+        }
+      ]
     },
     {
       "Name": "Bancard(BE)",
-      "MaxParallelTasks": 2,
-      "Vacations": [ 0, 1 ]
+      "SubResources": [
+        {
+          "Name": "Sophia Mushegova",
+          "Vacations": [ 1 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Artem Zagorulko",
+          "Vacations": [ 2 ],
+          "SubResourceId": 1
+        }
+      ]
     },
     {
       "Name": "Cybersource(BE)",
-      "MaxParallelTasks": 2
+      "SubResources": [
+        {
+          "Name": "Maxim Smolnikov",
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Mikhail Zhuikov",
+          "SubResourceId": 1
+        }
+      ]
     },
     {
       "Name": "Experian(BE)",
-      "MaxParallelTasks": 2,
-      "Vacations": [ 0, 1 ]
+      "SubResources": [
+        {
+          "Name": "Vitaly Petrov",
+          "Vacations": [ 1, 2 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Konstantin Khalyavin",
+          "SubResourceId": 1
+        }
+      ]
     },
     {
       "Name": "QA",
-      "MaxParallelTasks": 3,
-      "Vacations": [ 4 ]
+      "SubResources": [
+        {
+          "Name": "QA_1",
+          "Vacations": [ 5 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "QA_2",
+          "SubResourceId": 1
+        },
+        {
+          "Name": "QA_3",
+          "SubResourceId": 2
+        }
+      ]
     }
   ],
   "ProjectList": [

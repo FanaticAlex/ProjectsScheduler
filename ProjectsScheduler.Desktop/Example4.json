@@ -2,36 +2,109 @@
   "Resources": [
     {
       "Name": "Async(BE)",
-      "MaxParallelTasks": 2,
-      "Vacations": [ 1 ]
+      "SubResources": [
+        {
+          "Name": "Artem Zagorulko",
+          "Vacations": [ 2 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Sophia Mushegova",
+          "SubResourceId": 1
+        }
+      ]
     },
     {
       "Name": "Braintree(BE)",
-      "MaxParallelTasks": 2,
-      "Vacations": [ 0 ]
+      "SubResources": [
+        {
+          "Name": "Mikhail Zhuikov",
+          "Vacations": [ 1 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Maxim Smolnikov",
+          "SubResourceId": 1
+        }
+      ]
     },
     {
       "Name": "Experian(BE)",
-      "MaxParallelTasks": 2,
-      "Vacations": [ 0 ]
+      "SubResources": [
+        {
+          "Name": "Vitaly Petrov",
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Konstantin Khalyavin",
+          "Vacations": [ 1 ],
+          "SubResourceId": 1
+        }
+      ]
     },
     {
       "Name": "Zlick(BE)",
-      "MaxParallelTasks": 2,
-      "Vacations": [ 1 ]
+      "SubResources": [
+        {
+          "Name": "Sergey Tarasov",
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Ksenia Blinova",
+          "Vacations": [ 2 ],
+          "SubResourceId": 1
+        }
+      ]
     },
     {
       "Name": "Klarna(BE)",
-      "MaxParallelTasks": 2
+      "SubResources": [
+        {
+          "Name": "Artem Zagorulko",
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Sergey Tarasov",
+          "SubResourceId": 1
+        }
+      ]
     },
     {
       "Name": "Stripe(BE)",
-      "MaxParallelTasks": 2,
-      "Vacations": [ 3 ]
+      "SubResources": [
+        {
+          "Name": "Mikhail Zhuikov",
+          "Vacations": [ 1 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Vitaly Petrov",
+          "Vacations": [ 4 ],
+          "SubResourceId": 1
+        }
+      ]
     },
     {
       "Name": "QA",
-      "MaxParallelTasks": 2
+      "SubResources": [
+        {
+          "Name": "QA_1",
+          "Vacations": [ 3 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "QA_2",
+          "SubResourceId": 1
+        },
+        {
+          "Name": "QA_3",
+          "SubResourceId": 2
+        },
+        {
+          "Name": "QA_4",
+          "SubResourceId": 3
+        }
+      ]
     }
   ],
   "ProjectList": [

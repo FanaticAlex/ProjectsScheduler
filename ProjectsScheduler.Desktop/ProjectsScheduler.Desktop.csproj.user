@@ -19,6 +19,9 @@
     <Compile Update="View\ResourcePropertiesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\SettingsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\TaskPropertiesView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -37,6 +40,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\ProjectsSetView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\SubResourcePropertiesView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\ResourcePropertiesView.xaml">

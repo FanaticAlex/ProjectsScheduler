@@ -2,10 +2,12 @@
 using ProjectsScheduler.Core;
 using ProjectsScheduler.Core.InputData;
 using ProjectsScheduler.Core.OrToolsSolver;
+using ProjectsScheduler.Desktop.View;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -25,6 +27,35 @@ namespace ProjectsScheduler.Desktop.ViewModel
         public ICommand AddTaskCommand { get; set; }
         public ICommand RemoveTaskCommand { get; set; }
         public ICommand AddResourceCommand { get; set; }
+        public ICommand RemoveResourceCommand { get; set; }
+        public ICommand AddSubResourceCommand { get; set; }
+
+        public ICommand OpenSettingsCommand { get; set; }
+
+        private bool _isProgress = false;
+        public bool IsProgress
+        {
+            get { return _isProgress; }
+            set
+            {
+                _isProgress = value;
+                OnPropertyChanged(nameof(IsProgress));
+                OnPropertyChanged(nameof(ProgressVisibility));
+                OnPropertyChanged(nameof(IsActionsAvailable));
+            }
+        }
+
+        public bool IsActionsAvailable
+        {
+            get { return !IsProgress; }
+            set { }
+        }
+
+        public Visibility ProgressVisibility
+        {
+            get { return IsProgress? Visibility.Visible: Visibility.Hidden; }
+            set { }
+        }
 
         public ProjectsSetViewModel ProjectsSetViewModel { get; set; }
 
@@ -43,6 +74,9 @@ namespace ProjectsScheduler.Desktop.ViewModel
             AddTaskCommand = new RelayCommand(AddTask, CanExecuteAddTaskCommand);
             RemoveTaskCommand = new RelayCommand(RemoveTask, CanExecuteRemoveTaskCommand);
             AddResourceCommand = new RelayCommand(AddResource);
+            RemoveResourceCommand = new RelayCommand(RemoveResource, CanExecuteRemoveResourceCommand);
+            AddSubResourceCommand = new RelayCommand(AddSubResource, CanExecuteAddSubResourceCommand);
+            OpenSettingsCommand = new RelayCommand(OpenSettings);
 
             ProjectsSetViewModel = new ProjectsSetViewModel();
             ResultsViewModel = new ResultsViewModel();
@@ -50,12 +84,16 @@ namespace ProjectsScheduler.Desktop.ViewModel
             Load("TestProjectsSet.json");
         }
 
-        private void Run(object? parameter)
+        private async void Run(object? parameter)
         {
             try
             {
+                IsProgress = true;
+                ResultsViewModel.Clear();
+                SolutionUpdated?.Invoke(this, null);
+
                 var solver = new ProjectSchedulerProblemSolver();
-                Result = solver.Solve(ProjectsSet);
+                await Task.Run( () => Result = solver.Solve(ProjectsSet));
                 switch (Result.Status)
                 {
                     case Status.Optimal:
@@ -85,6 +123,10 @@ namespace ProjectsScheduler.Desktop.ViewModel
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                IsProgress = false;
             }
         }
 
@@ -188,9 +230,75 @@ namespace ProjectsScheduler.Desktop.ViewModel
                 newName = "Новый_" + newName;
             }
 
-            var newResource = new ProjectResource() { Name = newName, MaxParallelTasks = 1 };
+            var newResource = new ProjectResource() { Name = newName };
             ProjectsSet.Resources.Add(newResource);
             ProjectsSetViewModel.SetProjectSet(ProjectsSet);
+        }
+
+        private void RemoveResource(object? parameter)
+        {
+            var resourceVM = (ProjectsSetViewModel.SelectedObject as ResourceViewModel);
+            foreach (var resource in ProjectsSet.Resources.ToList())
+            {
+                if (resource.Name == resourceVM.Name)
+                {
+                    ProjectsSet.Resources.Remove(resource);
+                    ProjectsSetViewModel.SetProjectSet(ProjectsSet);
+                    return;
+                }
+            }
+        }
+
+        private bool CanExecuteRemoveResourceCommand(object? parameter)
+        {
+            if (ProjectsSetViewModel.SelectedObject is ResourceViewModel)
+            {
+                var resourceVM = (ProjectsSetViewModel.SelectedObject as ResourceViewModel);
+                var resourceInUse = ProjectsSet.ProjectList.SelectMany(p => p.Tasks).Select(t => t.ResourceName);
+                var isResourceInUse = resourceInUse.Contains(resourceVM.Name);
+                return !isResourceInUse;
+            }
+            
+            return false;
+        }
+
+        private void AddSubResource(object? parameter)
+        {
+            var resource = ((ResourceViewModel)ProjectsSetViewModel.SelectedObject).Resource;
+
+            var newName = "Новый субресурс";
+            while (resource.SubResources.Select(sr => sr.Name).Contains(newName))
+            {
+                newName = "Новый_" + newName;
+            }
+
+            var id = 0;
+            while (resource.SubResources.Select(sr => sr.SubResourceId).Contains(id))
+            {
+                id += 1;
+            }
+
+            var newSubResource = new SubResource() { Name = newName, SubResourceId = id };
+            resource.SubResources.Add(newSubResource);
+            ProjectsSetViewModel.SetProjectSet(ProjectsSet);
+        }
+
+        private bool CanExecuteAddSubResourceCommand(object? parameter)
+        {
+            return (ProjectsSetViewModel.SelectedObject is ResourceViewModel);
+        }
+
+        private void OpenSettings(object? parameter)
+        {
+            var settingsWindow = new SettingsWindow();
+            var vm = new SettingsViewModel();
+            vm.SetSettings(ProjectsSet.timeLimitInSeconds);
+            settingsWindow.DataContext = vm;
+
+            if (settingsWindow.ShowDialog() == true)
+            {
+                ProjectsSet.timeLimitInSeconds = vm.TimeLimitInSeconds;
+            }
         }
     }
 }

@@ -1,187 +1,214 @@
 {
   "Resources": [
     {
-      "Name": "A(BE)",
-      "MaxParallelTasks": 1
+      "Name": "Avalara(BE)",
+      "SubResources": [
+        {
+          "Name": "Ksenia Blinova",
+          "Vacations": [ 2 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Sergey Tarasov",
+          "Vacations": [ 3 ],
+          "SubResourceId": 1
+        }
+      ]
     },
     {
-      "Name": "A(FE)",
-      "MaxParallelTasks": 1
+      "Name": "Bancard(BE)",
+      "SubResources": [
+        {
+          "Name": "Sophia Mushegova",
+          "Vacations": [ 1 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Artem Zagorulko",
+          "Vacations": [ 2 ],
+          "SubResourceId": 1
+        }
+      ]
     },
     {
-      "Name": "A(QA)",
-      "MaxParallelTasks": 1
+      "Name": "Cybersource(BE)",
+      "SubResources": [
+        {
+          "Name": "Maxim Smolnikov",
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Mikhail Zhuikov",
+          "SubResourceId": 1
+        }
+      ]
     },
     {
-      "Name": "B(BE)",
-      "MaxParallelTasks": 1
+      "Name": "Experian(BE)",
+      "SubResources": [
+        {
+          "Name": "Vitaly Petrov",
+          "Vacations": [ 1, 2 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "Konstantin Khalyavin",
+          "SubResourceId": 1
+        }
+      ]
     },
     {
-      "Name": "B(FE)",
-      "MaxParallelTasks": 1
-    },
-    {
-      "Name": "B(QA)",
-      "MaxParallelTasks": 1
-    },
-    {
-      "Name": "C(BE)",
-      "MaxParallelTasks": 1
-    },
-    {
-      "Name": "C(FE)",
-      "MaxParallelTasks": 1
-    },
-    {
-      "Name": "C(QA)",
-      "MaxParallelTasks": 1
+      "Name": "QA",
+      "SubResources": [
+        {
+          "Name": "QA_1",
+          "Vacations": [ 5 ],
+          "SubResourceId": 0
+        },
+        {
+          "Name": "QA_2",
+          "SubResourceId": 1
+        },
+        {
+          "Name": "QA_3",
+          "SubResourceId": 2
+        }
+      ]
     }
   ],
   "ProjectList": [
     {
-      "Name": "project1",
+      "Name": "Avalara 1",
       "Tasks": [
         {
-          "ResourceName": "B(FE)",
-          "Duration": 2
-        },
-        {
-          "ResourceName": "B(QA)",
-          "Duration": 1
-        }
-      ]
-    },
-    {
-      "Name": "project2",
-      "Tasks": [
-        {
-          "ResourceName": "C(FE)",
+          "ResourceName": "Avalara(BE)",
           "Duration": 1
         },
         {
-          "ResourceName": "B(FE)",
+          "ResourceName": "Avalara(BE)",
           "Duration": 1
         },
         {
-          "ResourceName": "C(QA)",
-          "Duration": 1
-        },
-        {
-          "ResourceName": "B(QA)",
-          "Duration": 1
-        }
-      ]
-    },
-    {
-      "Name": "project3",
-      "Tasks": [
-        {
-          "ResourceName": "A(FE)",
-          "Duration": 2
-        },
-        {
-          "ResourceName": "A(QA)",
+          "ResourceName": "QA",
           "Duration": 2
         }
       ]
     },
     {
-      "Name": "project4",
+      "Name": "Avalara 2",
       "Tasks": [
         {
-          "ResourceName": "C(BE)",
+          "ResourceName": "Avalara(BE)",
           "Duration": 1
         },
         {
-          "ResourceName": "C(FE)",
+          "ResourceName": "Avalara(BE)",
           "Duration": 1
         },
         {
-          "ResourceName": "C(QA)",
+          "ResourceName": "QA",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "Bancard 1",
+      "Tasks": [
+        {
+          "ResourceName": "Bancard(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "Bancard(BE)",
+          "Duration": 1
+        },
+        {
+          "ResourceName": "QA",
           "Duration": 1
         }
       ]
     },
     {
-      "Name": "project5",
+      "Name": "Bancard 2",
       "Tasks": [
         {
-          "ResourceName": "C(BE)",
+          "ResourceName": "Bancard(BE)",
           "Duration": 1
         },
         {
-          "ResourceName": "C(FE)",
+          "ResourceName": "Bancard(BE)",
           "Duration": 1
         },
         {
-          "ResourceName": "A(BE)",
-          "Duration": 1
+          "ResourceName": "QA",
+          "Duration": 2
+        }
+      ]
+    },
+    {
+      "Name": "Cybersource 1",
+      "Tasks": [
+        {
+          "ResourceName": "Cybersource(BE)",
+          "Duration": 2
         },
         {
-          "ResourceName": "C(QA)",
+          "ResourceName": "Cybersource(BE)",
+          "Duration": 2
+        },
+        {
+          "ResourceName": "QA",
           "Duration": 1
         }
       ]
     },
     {
-      "Name": "project6",
+      "Name": "Cybersource 2",
       "Tasks": [
         {
-          "ResourceName": "B(BE)",
-          "Duration": 1
+          "ResourceName": "Cybersource(BE)",
+          "Duration": 2
         },
         {
-          "ResourceName": "C(BE)",
-          "Duration": 1
+          "ResourceName": "Cybersource(BE)",
+          "Duration": 2
         },
         {
-          "ResourceName": "C(FE)",
-          "Duration": 1
-        },
-        {
-          "ResourceName": "C(QA)",
+          "ResourceName": "QA",
           "Duration": 1
         }
       ]
     },
     {
-      "Name": "project7",
+      "Name": "Experian 1",
       "Tasks": [
         {
-          "ResourceName": "A(BE)",
+          "ResourceName": "Experian(BE)",
           "Duration": 1
         },
         {
-          "ResourceName": "B(BE)",
+          "ResourceName": "Experian(BE)",
           "Duration": 1
         },
         {
-          "ResourceName": "B(FE)",
-          "Duration": 1
-        },
-        {
-          "ResourceName": "A(QA)",
-          "Duration": 1
-        },
-        {
-          "ResourceName": "B(QA)",
-          "Duration": 1
+          "ResourceName": "QA",
+          "Duration": 2
         }
       ]
     },
     {
-      "Name": "project8",
+      "Name": "Experian 2",
       "Tasks": [
         {
-          "ResourceName": "A(BE)",
+          "ResourceName": "Experian(BE)",
           "Duration": 1
         },
         {
-          "ResourceName": "A(FE)",
+          "ResourceName": "Experian(BE)",
           "Duration": 1
         },
         {
-          "ResourceName": "A(QA)",
+          "ResourceName": "QA",
           "Duration": 1
         }
       ]
